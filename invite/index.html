@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wedding Invitation</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root {
+    --ivory: #fbf5ee;
+    --rose: #a3294f;
+    --rose-soft: #c25b7a;
+    --ink: #5e4337;
+    --gold: #b48a3c;
+    --gold-hi: #e3c47c;
+  }
+  html, body { margin: 0; padding: 0; background: #e9e1d8; }
+  body.render { background: var(--ivory); }
+  #wrap { width: 1080px; height: 1920px; transform-origin: 0 0; }
+  #stage {
+    position: relative; width: 1080px; height: 1920px; overflow: hidden;
+    background: var(--ivory);
+    font-family: 'Cormorant Garamond', serif; color: var(--ink);
+  }
+  #stage > * { position: absolute; }
+  canvas.layer { left: 0; top: 0; }
+  .flora { will-change: transform, opacity; }
+  #arch { left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+  .strand { position: absolute; top: -10px; transform-origin: 50% 0; }
+
+  .center { left: 0; width: 1080px; text-align: center; }
+  .scene { left: 0; top: 0; width: 1080px; height: 1920px; }
+  .scene > * { position: absolute; left: 0; width: 1080px; text-align: center; will-change: transform, opacity, filter; }
+
+  .bismillah { font-family: 'Amiri', serif; font-size: 50px; color: var(--gold); top: 438px; direction: rtl; }
+  .caps { font-family: 'Cinzel', serif; font-weight: 400; letter-spacing: 0.32em; font-size: 30px; color: var(--gold); }
+  .caps.ink { color: var(--ink); }
+  .serif { font-family: 'Cormorant Garamond', serif; font-size: 46px; color: var(--ink); line-height: 1.25; }
+  .serif.it { font-style: italic; }
+  .script { font-family: 'Great Vibes', cursive; color: var(--rose); line-height: 1; }
+  .gold-text {
+    background: linear-gradient(100deg, #9a7130 0%, #d9b766 40%, #f3dea1 50%, #c9a256 60%, #9a7130 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .divider svg { display: block; margin: 0 auto; }
+
+  .dateblock { display: flex; align-items: center; justify-content: center; gap: 34px; }
+  .dateblock .side {
+    font-family: 'Cinzel', serif; font-size: 30px; letter-spacing: 0.22em; color: var(--ink);
+    border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold);
+    padding: 14px 0 12px; width: 230px;
+  }
+  .dateblock .day { font-family: 'Cinzel', serif; font-weight: 600; font-size: 120px; line-height: 1; color: var(--rose); width: 170px; }
+  .time { font-family: 'Cinzel', serif; font-size: 44px; letter-spacing: 0.12em; color: var(--ink); }
+  .time small { font-size: 0.7em; }
+
+  .sum-row .script { font-size: 120px; }
+  .sum-line { font-family: 'Cinzel', serif; font-size: 29px; letter-spacing: 0.14em; color: var(--ink); }
+  .wipe { -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 45%, transparent 55%, transparent 100%); -webkit-mask-size: 300% 100%; }
+  .ch { display: inline-block; white-space: pre; }
+</style>
+</head>
+<body>
+<div id="wrap">
+<div id="stage">
+  <canvas id="bg" class="layer" width="1080" height="1920"></canvas>
+  <svg id="arch" viewBox="0 0 1080 1920"></svg>
+  <div id="strands"></div>
+  <div id="flora-back"></div>
+
+  <div class="scene" id="persist">
+    <div class="bismillah" id="bism">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+  </div>
+
+  <!-- Scene 1: intro -->
+  <div class="scene" id="s1">
+    <div class="caps" style="top:650px" data-a="letters">With the blessings of Allah</div>
+    <div class="serif it" style="top:740px" data-a="fade">we request the honour of your presence</div>
+    <div class="serif it" style="top:798px" data-a="fade">at the</div>
+    <div class="script" style="top:870px;font-size:190px" data-a="wipe">Wedding</div>
+    <div class="script" style="top:1060px;font-size:130px" data-a="wipe">Celebrations</div>
+    <div class="divider" style="top:1235px" data-a="line" data-orn="1"></div>
+    <div class="caps ink" style="top:1310px;font-size:34px" data-a="letters">Barat &amp; Walima</div>
+    <div class="serif" style="top:1370px;font-size:50px;color:var(--rose)" data-a="fade">21 &amp; 22 November 2026</div>
+  </div>
+
+  <!-- Scene 2: Barat -->
+  <div class="scene" id="s2">
+    <div class="caps" style="top:670px" data-a="letters">Join us for the</div>
+    <div class="script" style="top:740px;font-size:250px" data-a="wipe">Barat</div>
+    <div class="divider" style="top:1010px" data-a="line" data-orn="1"></div>
+    <div style="top:1100px" data-a="fade">
+      <div class="dateblock"><div class="side">Saturday</div><div class="day">21</div><div class="side">November</div></div>
+    </div>
+    <div class="caps ink" style="top:1280px;font-size:32px" data-a="letters">2026</div>
+    <div class="time" style="top:1380px" data-a="fade"><span class="serif it" style="font-size:44px">at</span>&nbsp; 12:30 PM</div>
+  </div>
+
+  <!-- Scene 3: Walima -->
+  <div class="scene" id="s3">
+    <div class="caps" style="top:670px" data-a="letters">Join us for the</div>
+    <div class="script" style="top:740px;font-size:250px" data-a="wipe">Walima</div>
+    <div class="divider" style="top:1010px" data-a="line" data-orn="1"></div>
+    <div style="top:1100px" data-a="fade">
+      <div class="dateblock"><div class="side">Sunday</div><div class="day">22</div><div class="side">November</div></div>
+    </div>
+    <div class="caps ink" style="top:1280px;font-size:32px" data-a="letters">2026</div>
+    <div class="time" style="top:1380px" data-a="fade">1:00 PM &nbsp;–&nbsp; 3:00 PM</div>
+  </div>
+
+  <!-- Scene 4: Venue -->
+  <div class="scene" id="s4">
+    <div class="caps" style="top:660px" data-a="letters">Venue</div>
+    <div style="top:725px" data-a="pin" id="pin"></div>
+    <div class="caps" style="top:900px;font-size:72px;letter-spacing:0.12em;color:var(--rose);font-weight:600" data-a="wipe">Awan-e-Akbar</div>
+    <div class="caps ink" style="top:1020px;font-size:40px;letter-spacing:0.3em" data-a="letters">Hall No. 03</div>
+    <div class="divider" style="top:1140px" data-a="line" data-orn="1"></div>
+    <div class="serif" style="top:1220px;font-size:50px" data-a="fade">Main Ferozepur Road,</div>
+    <div class="serif it" style="top:1285px;font-size:50px" data-a="fade">opposite Atari Saroba Station</div>
+  </div>
+
+  <!-- Scene 5: summary (final hold) -->
+  <div class="scene" id="s5">
+    <div class="serif it" style="top:605px;font-size:44px" data-a="fade">we look forward to celebrating with you</div>
+    <div class="script" style="top:670px;font-size:140px" data-a="wipe">Barat</div>
+    <div class="sum-line" style="top:830px" data-a="fade">Saturday · 21 November 2026</div>
+    <div class="sum-line" style="top:878px;color:var(--rose)" data-a="fade">12:30 PM</div>
+    <div class="divider" style="top:945px" data-a="line" data-orn="0"></div>
+    <div class="script" style="top:980px;font-size:140px" data-a="wipe">Walima</div>
+    <div class="sum-line" style="top:1140px" data-a="fade">Sunday · 22 November 2026</div>
+    <div class="sum-line" style="top:1188px;color:var(--rose)" data-a="fade">1:00 PM – 3:00 PM</div>
+    <div class="divider" style="top:1255px" data-a="line" data-orn="0"></div>
+    <div class="caps ink" style="top:1300px;font-size:31px;letter-spacing:0.2em" data-a="fade">Awan-e-Akbar · Hall No. 03</div>
+    <div class="serif" style="top:1348px;font-size:38px" data-a="fade">Main Ferozepur Road, opp. Atari Saroba Station</div>
+    <div class="script" style="top:1415px;font-size:66px;color:var(--gold)" data-a="fade">Your presence will be our honour</div>
+  </div>
+
+  <div id="flora-front"></div>
+  <canvas id="fx" class="layer" width="1080" height="1920"></canvas>
+  <canvas id="vignette" class="layer" width="1080" height="1920"></canvas>
+</div>
+</div>
+
+<script>
+// ---------- deterministic helpers ----------
+function rng(seed) { let s = seed >>> 0; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const easeOut = x => 1 - Math.pow(1 - clamp(x), 3);
+const easeInOut = x => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const lerp = (a, b, k) => a + (b - a) * k;
+
+const DURATION = 36;
+const SCENES = [
+  // id, in, out (null = holds to the end)
+  ['s1', 2.6, 9.0],
+  ['s2', 9.8, 15.8],
+  ['s3', 16.6, 22.6],
+  ['s4', 23.4, 29.2],
+  ['s5', 30.0, null],
+];
+
+// ---------- background: ivory paper + watercolour washes ----------
+function drawBackground() {
+  const c = document.getElementById('bg'), g = c.getContext('2d');
+  g.fillStyle = '#fbf5ee'; g.fillRect(0, 0, 1080, 1920);
+  const r = rng(7);
+  const washes = [[180, 300, 520, '#f6d6dc'], [930, 260, 480, '#f9dfd4'], [120, 1780, 600, '#f4d2da'], [980, 1720, 560, '#f7dccd'], [540, 960, 700, '#fdf3ea']];
+  for (const [x, y, rad, col] of washes) {
+    for (let i = 0; i < 6; i++) {
+      const gx = x + (r() - .5) * 140, gy = y + (r() - .5) * 140, gr = rad * (0.6 + r() * 0.5);
+      const grd = g.createRadialGradient(gx, gy, 0, gx, gy, gr);
+      grd.addColorStop(0, col + '88'); grd.addColorStop(1, col + '00');
+      g.fillStyle = grd; g.beginPath(); g.arc(gx, gy, gr, 0, Math.PI * 2); g.fill();
+    }
+  }
+  // paper grain
+  const img = g.getImageData(0, 0, 1080, 1920), d = img.data;
+  for (let i = 0; i < d.length; i += 4) { const n = (r() - .5) * 10; d[i] += n; d[i + 1] += n; d[i + 2] += n; }
+  g.putImageData(img, 0, 0);
+
+  const v = document.getElementById('vignette').getContext('2d');
+  const vg = v.createRadialGradient(540, 960, 600, 540, 960, 1250);
+  vg.addColorStop(0, 'rgba(120,70,60,0)'); vg.addColorStop(1, 'rgba(120,70,60,0.16)');
+  v.fillStyle = vg; v.fillRect(0, 0, 1080, 1920);
+}
+
+// ---------- arch (gold jharokha frame) ----------
+function archPath(inset) {
+  const L = 110 + inset, R = 970 - inset, B = 1760, S = 600 + inset * .4, T = 250 + inset * 1.5;
+  return `M${L},${B} L${L},${S} C${L},${S - 120} ${L + 120},${S - 150} ${L + 205},${S - 185}
+    C${L + 290},${S - 220} ${505 - inset * .2},${T + 140} 540,${T}
+    C${575 + inset * .2},${T + 140} ${R - 290},${S - 220} ${R - 205},${S - 185}
+    C${R - 120},${S - 150} ${R},${S - 120} ${R},${S} L${R},${B}`;
+}
+function buildArch() {
+  const svg = document.getElementById('arch');
+  svg.innerHTML = `
+  <defs>
+    <linearGradient id="goldg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9a7130"/><stop offset=".45" stop-color="#e3c47c"/>
+      <stop offset=".55" stop-color="#f5e2a8"/><stop offset="1" stop-color="#a77d36"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18"/></filter>
+  </defs>
+  <path id="archfill" d="${archPath(0)} Z" fill="#fffaf5" opacity="0"/>
+  <path id="archshadow" d="${archPath(0)} Z" fill="none" stroke="#b07a6a" stroke-width="20" opacity="0" filter="url(#soft)"/>
+  <path class="aline" d="${archPath(0)}" fill="none" stroke="url(#goldg)" stroke-width="5"/>
+  <path class="aline" d="${archPath(22)}" fill="none" stroke="url(#goldg)" stroke-width="2"/>
+  <g id="finial" opacity="0">
+    <line x1="540" y1="252" x2="540" y2="200" stroke="#c9a256" stroke-width="3"/>
+    <circle cx="540" cy="192" r="9" fill="url(#goldg)"/>
+    <path d="M540,150 C552,165 552,175 540,182 C528,175 528,165 540,150 Z" fill="url(#goldg)"/>
+  </g>`;
+  for (const p of svg.querySelectorAll('.aline')) { const L = p.getTotalLength(); p.dataset.len = L; p.style.strokeDasharray = L; }
+}
+
+// ---------- hanging strands (beads + bells) ----------
+const STRANDS = [{ x: 228, len: 300, ph: 0 }, { x: 318, len: 200, ph: 1.7 }, { x: 762, len: 200, ph: 2.6 }, { x: 852, len: 300, ph: 4.1 }];
+function buildStrands() {
+  const host = document.getElementById('strands');
+  STRANDS.forEach((s, i) => {
+    const n = Math.floor(s.len / 34);
+    let beads = '';
+    for (let k = 0; k < n; k++) {
+      const y = 20 + k * 34, pink = k % 2 === 0;
+      beads += pink
+        ? `<circle cx="30" cy="${y}" r="9" fill="url(#bp${i})"/>`
+        : `<circle cx="30" cy="${y}" r="6" fill="url(#bg${i})"/>`;
+    }
+    const by = 20 + n * 34;
+    const el = document.createElement('div');
+    el.className = 'strand'; el.style.left = (s.x - 30) + 'px';
+    el.innerHTML = `<svg width="60" height="${by + 70}" viewBox="0 0 60 ${by + 70}">
+      <defs>
+        <radialGradient id="bp${i}" cx=".35" cy=".35"><stop offset="0" stop-color="#ffe3ea"/><stop offset="1" stop-color="#d36b8a"/></radialGradient>
+        <radialGradient id="bg${i}" cx=".35" cy=".35"><stop offset="0" stop-color="#fff0c4"/><stop offset="1" stop-color="#b48a3c"/></radialGradient>
+        <linearGradient id="bell${i}" x1="0" x2="1"><stop offset="0" stop-color="#9a7130"/><stop offset=".5" stop-color="#f1d792"/><stop offset="1" stop-color="#9a7130"/></linearGradient>
+      </defs>
+      <line x1="30" y1="0" x2="30" y2="${by}" stroke="#c9a256" stroke-width="1.6"/>
+      ${beads}
+      <path d="M30,${by - 6} C20,${by} 16,${by + 18} 14,${by + 34} L46,${by + 34} C44,${by + 18} 40,${by} 30,${by - 6} Z" fill="url(#bell${i})"/>
+      <circle cx="30" cy="${by + 39}" r="5" fill="#b48a3c"/>
+      <path d="M24,${by + 44} L30,${by + 66} L36,${by + 44} Z" fill="#d36b8a" opacity=".85"/>
+    </svg>`;
+    host.appendChild(el); s.el = el;
+  });
+}
+
+// ---------- watercolour florals (procedural SVG, rasterised once) ----------
+const PAL = {
+  blush: ['#d9708f', '#f3b9c8', '#fde8ed'],
+  rose:  ['#b83c63', '#e88aa5', '#fbd9e2'],
+  peach: ['#e48a6f', '#f7c1a8', '#fde9df'],
+  cream: ['#d7b48c', '#f6e3cf', '#fffaf3'],
+};
+function petalPath(L, W, r) {
+  const wob = (r() - .5) * W * .3;
+  return `M0,0 C${-W},${-L * .25} ${-W * .95 + wob},${-L * .95} ${-W * .25},${-L} Q0,${-L * 1.08} ${W * .25},${-L} C${W * .95 + wob},${-L * .95} ${W},${-L * .25} 0,0 Z`;
+}
+let gid = 0;
+function flower(x, y, R, palName, r, kind = 'peony') {
+  const p = PAL[palName], id = 'g' + (gid++);
+  let s = `<defs><radialGradient id="${id}" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${R}">
+    <stop offset="0" stop-color="${p[0]}"/><stop offset=".55" stop-color="${p[1]}"/><stop offset="1" stop-color="${p[2]}"/></radialGradient></defs>`;
+  s += `<g transform="translate(${x},${y}) rotate(${r() * 360})">`;
+  s += `<circle r="${R * 1.05}" fill="${p[1]}" opacity=".22" filter="url(#bleed)"/>`;
+  const rings = kind === 'peony' ? [[9, 1, .62, .55], [7, .8, .55, .6], [6, .6, .5, .7], [5, .4, .45, .8]]
+              : kind === 'rose' ? [[6, 1, .7, .6], [5, .75, .6, .7], [4, .52, .55, .8], [3, .33, .5, .85]]
+              : [[5, 1, .55, .75]];
+  rings.forEach(([n, lk, wk, op], ri) => {
+    const off = r() * 360;
+    for (let i = 0; i < n; i++) {
+      const a = off + i * 360 / n + (r() - .5) * 18;
+      const L = R * lk * (0.9 + r() * .2);
+      s += `<path d="${petalPath(L, L * wk, r)}" transform="rotate(${a})" fill="url(#${id})" opacity="${Math.min(.92, op + .2)}" stroke="${p[0]}" stroke-opacity=".35" stroke-width="1.4"/>`;
+    }
+  });
+  if (kind === 'blossom' || kind === 'peony') {
+    for (let i = 0; i < (kind === 'peony' ? 16 : 9); i++) {
+      const a = r() * Math.PI * 2, d = r() * R * (kind === 'peony' ? .16 : .22);
+      s += `<circle cx="${Math.cos(a) * d}" cy="${Math.sin(a) * d}" r="${R * .035 + 1.5}" fill="#d9a93f" opacity=".9"/>`;
+    }
+  } else {
+    s += `<path d="M${-R * .12},0 A${R * .12},${R * .12} 0 1 1 ${R * .1},${R * .05}" fill="none" stroke="${p[0]}" stroke-width="3" opacity=".6"/>`;
+  }
+  return s + '</g>';
+}
+function leafSprig(x, y, len, ang, r, tone = 0) {
+  const cols = [['#7f9e7d', '#c3d6b4'], ['#93ab8c', '#d5e2c6'], ['#6f8f7a', '#b5cdb8']][tone];
+  const id = 'l' + (gid++);
+  let s = `<defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="${cols[0]}"/><stop offset="1" stop-color="${cols[1]}"/></linearGradient></defs>`;
+  s += `<g transform="translate(${x},${y}) rotate(${ang})">`;
+  const bend = (r() - .5) * len * .3;
+  s += `<path d="M0,0 Q${bend},${-len / 2} 0,${-len}" fill="none" stroke="${cols[0]}" stroke-width="3" opacity=".8"/>`;
+  const n = Math.floor(len / 38);
+  for (let i = 1; i <= n; i++) {
+    const k = i / (n + 1), py = -len * k, px = bend * 2 * k * (1 - k);
+    const sz = (1 - k * .5) * (len * .14 + r() * 10);
+    for (const side of [-1, 1]) {
+      const a = side * (45 + r() * 20);
+      s += `<g transform="translate(${px},${py}) rotate(${a})"><path d="M0,0 C${sz * .55},${-sz * .4} ${sz * .45},${-sz * 1.4} 0,${-sz * 1.8} C${-sz * .45},${-sz * 1.4} ${-sz * .55},${-sz * .4} 0,0 Z" fill="url(#${id})" opacity=".82"/>
+        <path d="M0,0 L0,${-sz * 1.5}" stroke="${cols[0]}" stroke-width="1" opacity=".5"/></g>`;
+    }
+  }
+  s += `<path d="M0,${-len} c${len * .05},-${len * .12} -${len * .05},-${len * .2} 0,-${len * .16}" fill="url(#${id})"/>`;
+  return s + '</g>';
+}
+function dots(x, y, n, spread, r) {
+  let s = '';
+  for (let i = 0; i < n; i++) s += `<circle cx="${x + (r() - .5) * spread}" cy="${y + (r() - .5) * spread}" r="${2 + r() * 4}" fill="#d9a93f" opacity="${.5 + r() * .4}"/>`;
+  return s;
+}
+function svgWrap(w, h, body) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+  <defs>
+    <filter id="wc" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="9"/>
+    </filter>
+    <filter id="bleed" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="16"/></filter>
+  </defs><g filter="url(#wc)">${body}</g></svg>`;
+}
+// Each cluster: canvas size, anchor (transform-origin), position on stage, builder
+const CLUSTERS = [
+  { id: 'tl', w: 560, h: 520, left: -70, top: -80, ox: '10%', oy: '10%', layer: 'front', delay: 0.2,
+    build: r => leafSprig(150, 140, 300, 128, r, 0) + leafSprig(110, 160, 260, 160, r, 2) + leafSprig(220, 130, 240, 100, r, 1) +
+      flower(170, 170, 120, 'blush', r) + flower(330, 120, 82, 'peach', r, 'rose') + flower(110, 330, 78, 'rose', r, 'rose') +
+      flower(300, 270, 52, 'cream', r, 'blossom') + flower(420, 210, 34, 'blush', r, 'blossom') + dots(300, 300, 10, 160, r) },
+  { id: 'tr', w: 560, h: 520, left: 590, top: -80, ox: '90%', oy: '10%', layer: 'front', delay: 0.5,
+    build: r => leafSprig(410, 140, 300, -128, r, 0) + leafSprig(450, 160, 260, -160, r, 2) + leafSprig(340, 130, 240, -100, r, 1) +
+      flower(390, 170, 120, 'rose', r) + flower(230, 120, 80, 'blush', r, 'rose') + flower(450, 330, 80, 'peach', r) +
+      flower(260, 270, 50, 'cream', r, 'blossom') + flower(140, 200, 34, 'blush', r, 'blossom') + dots(260, 300, 10, 160, r) },
+  { id: 'bl', w: 640, h: 620, left: -110, top: 1420, ox: '15%', oy: '90%', layer: 'front', delay: 0.8,
+    build: r => leafSprig(170, 520, 380, 30, r, 0) + leafSprig(260, 540, 330, 60, r, 1) + leafSprig(120, 480, 300, 5, r, 2) +
+      flower(210, 430, 150, 'blush', r) + flower(410, 480, 100, 'rose', r, 'rose') + flower(150, 250, 80, 'peach', r, 'rose') +
+      flower(380, 330, 60, 'cream', r, 'blossom') + flower(520, 400, 40, 'blush', r, 'blossom') + dots(380, 360, 12, 220, r) },
+  { id: 'br', w: 640, h: 620, left: 550, top: 1420, ox: '85%', oy: '90%', layer: 'front', delay: 1.0,
+    build: r => leafSprig(470, 520, 380, -30, r, 0) + leafSprig(380, 540, 330, -60, r, 1) + leafSprig(520, 480, 300, -5, r, 2) +
+      flower(430, 430, 150, 'rose', r) + flower(230, 480, 100, 'blush', r) + flower(490, 250, 80, 'cream', r, 'rose') +
+      flower(260, 330, 60, 'peach', r, 'blossom') + flower(120, 400, 40, 'blush', r, 'blossom') + dots(260, 360, 12, 220, r) },
+  { id: 'bc', w: 520, h: 300, left: 280, top: 1690, ox: '50%', oy: '100%', layer: 'back', delay: 1.2,
+    build: r => leafSprig(120, 260, 200, -70, r, 1) + leafSprig(400, 260, 200, 70, r, 1) + leafSprig(260, 280, 160, 0, r, 0) +
+      flower(260, 200, 80, 'blush', r) + flower(150, 230, 50, 'peach', r, 'blossom') + flower(370, 230, 52, 'cream', r, 'blossom') + dots(260, 200, 8, 200, r) },
+];
+function loadCluster(c) {
+  return new Promise(res => {
+    const img = new Image();
+    img.onload = () => {
+      const cv = document.createElement('canvas'); cv.width = c.w; cv.height = c.h; cv.className = 'flora';
+      cv.getContext('2d').drawImage(img, 0, 0);
+      Object.assign(cv.style, { position: 'absolute', left: c.left + 'px', top: c.top + 'px', transformOrigin: `${c.ox} ${c.oy}` });
+      document.getElementById(c.layer === 'front' ? 'flora-front' : 'flora-back').appendChild(cv);
+      c.el = cv; res();
+    };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgWrap(c.w, c.h, c.build(rng(c.id.charCodeAt(0) * 31 + c.id.charCodeAt(1)))));
+  });
+}
+
+// ---------- ornaments ----------
+function ornament(full) {
+  const w = full ? 520 : 360;
+  const h = w / 2;
+  return `<svg width="${w}" height="40" viewBox="0 0 ${w} 40">
+    <defs><linearGradient id="og${gid}" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="${w}" y2="0"><stop offset="0" stop-color="#b48a3c" stop-opacity="0"/><stop offset=".3" stop-color="#b48a3c"/><stop offset=".7" stop-color="#b48a3c"/><stop offset="1" stop-color="#b48a3c" stop-opacity="0"/></linearGradient></defs>
+    <line x1="0" y1="20" x2="${h - 34}" y2="20" stroke="url(#og${gid})" stroke-width="2"/>
+    <line x1="${h + 34}" y1="20" x2="${w}" y2="20" stroke="url(#og${gid++})" stroke-width="2"/>
+    ${full ? `<path d="M${h - 30},20 C${h - 18},6 ${h - 8},6 ${h},20 C${h + 8},6 ${h + 18},6 ${h + 30},20 C${h + 18},34 ${h + 8},34 ${h},20 C${h - 8},34 ${h - 18},34 ${h - 30},20 Z" fill="none" stroke="#b48a3c" stroke-width="2"/>` : ''}
+    <path d="M${h},10 L${h + 8},20 L${h},30 L${h - 8},20 Z" fill="#c25b7a"/>
+  </svg>`;
+}
+function pinIcon() {
+  return `<svg width="90" height="110" viewBox="0 0 90 110"><defs><linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9a7130"/><stop offset=".5" stop-color="#f1d792"/><stop offset="1" stop-color="#a77d36"/></linearGradient></defs>
+    <path d="M45,104 C45,104 10,62 10,40 A35,35 0 0 1 80,40 C80,62 45,104 45,104 Z" fill="none" stroke="url(#pg)" stroke-width="4"/>
+    <circle cx="45" cy="40" r="13" fill="#c25b7a" opacity=".85"/></svg>`;
+}
+
+// ---------- scene element setup ----------
+const items = []; // {el, scene, kind, start, chars}
+function setupScenes() {
+  for (const [sid, tin] of SCENES) {
+    const sc = document.getElementById(sid);
+    let k = 0;
+    for (const el of sc.children) {
+      const kind = el.dataset.a; if (!kind) continue;
+      if (kind === 'line') el.innerHTML = ornament(el.dataset.orn === '1');
+      if (kind === 'pin') el.innerHTML = pinIcon();
+      if (kind === 'letters') {
+        const txt = el.textContent; el.textContent = '';
+        for (const ch of txt) { const s = document.createElement('span'); s.className = 'ch'; s.textContent = ch; el.appendChild(s); }
+      }
+      if (kind === 'wipe') el.classList.add('wipe');
+      const step = sid === 's5' ? 0.32 : 0.42;
+      items.push({ el, sid, kind, start: tin + k * step, chars: el.querySelectorAll('.ch') });
+      k++;
+    }
+  }
+}
+
+// ---------- particles: falling petals + gold glints ----------
+const petals = (() => { const r = rng(99), a = []; for (let i = 0; i < 16; i++) a.push({ x: r() * 1080, sp: 55 + r() * 45, ph: r() * 40, amp: 30 + r() * 50, fr: .4 + r() * .5, rot: r() * 6, rs: (r() - .5) * 2, sz: 12 + r() * 10, col: r() < .7 ? ['#f2a7bb', '#fbe1e8'] : ['#f6c2a6', '#fdebe0'] }); return a; })();
+const glints = (() => { const r = rng(5), a = []; for (let i = 0; i < 26; i++) a.push({ x: 160 + r() * 760, y: 380 + r() * 1150, ph: r() * 10, per: 2.5 + r() * 3, sz: 5 + r() * 9 }); return a; })();
+function drawFx(t) {
+  const c = document.getElementById('fx'), g = c.getContext('2d');
+  g.clearRect(0, 0, 1080, 1920);
+  const vis = easeOut((t - 1.5) / 3);
+  for (const p of petals) {
+    const life = 1920 + 200, y = ((t + p.ph) * p.sp) % life - 100;
+    const x = p.x + Math.sin((t + p.ph) * p.fr) * p.amp;
+    g.save(); g.translate(x, y); g.rotate(p.rot + t * p.rs); g.scale(Math.cos(t * 1.3 + p.ph), 1);
+    g.globalAlpha = .55 * vis;
+    const grd = g.createLinearGradient(-p.sz, 0, p.sz, 0); grd.addColorStop(0, p.col[0]); grd.addColorStop(1, p.col[1]);
+    g.fillStyle = grd; g.beginPath();
+    g.moveTo(0, -p.sz); g.bezierCurveTo(p.sz * .9, -p.sz * .6, p.sz * .7, p.sz * .7, 0, p.sz);
+    g.bezierCurveTo(-p.sz * .7, p.sz * .7, -p.sz * .9, -p.sz * .6, 0, -p.sz); g.fill(); g.restore();
+  }
+  for (const s of glints) {
+    const k = Math.pow(Math.max(0, Math.sin((t + s.ph) / s.per * Math.PI * 2)), 6) * vis;
+    if (k < .01) continue;
+    g.save(); g.translate(s.x, s.y); g.globalAlpha = k * .9; g.fillStyle = '#e8c878';
+    const z = s.sz * (.6 + .4 * k);
+    g.beginPath(); g.moveTo(0, -z); g.quadraticCurveTo(0, 0, z, 0); g.quadraticCurveTo(0, 0, 0, z); g.quadraticCurveTo(0, 0, -z, 0); g.quadraticCurveTo(0, 0, 0, -z); g.fill();
+    g.restore();
+  }
+}
+
+// ---------- master render(t) ----------
+function render(t) {
+  // arch drawing
+  const ad = easeInOut((t - 0.3) / 2.4);
+  document.querySelectorAll('#arch .aline').forEach(p => p.style.strokeDashoffset = p.dataset.len * (1 - ad));
+  document.getElementById('archfill').setAttribute('opacity', 0.55 * easeOut((t - 1.4) / 1.6));
+  document.getElementById('archshadow').setAttribute('opacity', 0.18 * easeOut((t - 1.4) / 1.6));
+  document.getElementById('finial').setAttribute('opacity', easeOut((t - 2.4) / .8));
+
+  // florals bloom then sway
+  for (const c of CLUSTERS) {
+    const k = easeOut((t - c.delay) / 2.2);
+    const sway = Math.sin(t * .55 + c.delay * 3) * 1.1 * k;
+    const breathe = 1 + Math.sin(t * .4 + c.delay) * .008;
+    c.el.style.opacity = clamp(k * 1.4);
+    c.el.style.transform = `scale(${lerp(.55, 1, k) * breathe}) rotate(${sway + (1 - k) * (c.id.endsWith('l') ? -14 : 14)}deg)`;
+  }
+  // strands drop in and swing
+  STRANDS.forEach((s, i) => {
+    const k = easeOut((t - 1.2 - i * .15) / 1.6);
+    s.el.style.opacity = k;
+    s.el.style.transform = `translateY(${(1 - k) * -340}px) rotate(${Math.sin(t * 1.1 + s.ph) * 2.2 + (1 - k) * 6}deg)`;
+  });
+  // bismillah (persistent)
+  const bk = easeOut((t - 1.8) / 1.4), b = document.getElementById('bism');
+  b.style.opacity = bk; b.style.filter = `blur(${(1 - bk) * 8}px)`; b.style.transform = `translateY(${(1 - bk) * 16}px)`;
+
+  // scenes
+  const sceneOut = {};
+  for (const [sid, , tout] of SCENES) {
+    const o = tout == null ? 0 : easeInOut((t - tout) / 0.8);
+    sceneOut[sid] = o;
+    document.getElementById(sid).style.visibility = (o >= 1) ? 'hidden' : 'visible';
+  }
+  for (const it of items) {
+    const o = sceneOut[it.sid], el = it.el;
+    const outT = `translateY(${-24 * o}px)`, outF = o > 0 ? `blur(${o * 6}px)` : '';
+    const lt = t - it.start;
+    if (it.kind === 'letters') {
+      const n = it.chars.length;
+      it.chars.forEach((ch, i) => {
+        const k = easeOut((lt - i * (0.9 / n)) / .7);
+        ch.style.opacity = k; ch.style.transform = `translateY(${(1 - k) * 18}px)`;
+      });
+      el.style.opacity = 1 - o; el.style.transform = outT; el.style.filter = outF;
+    } else if (it.kind === 'wipe') {
+      const k = easeInOut(lt / 1.6);
+      el.style.webkitMaskPosition = `${lerp(100, 0, k)}% 0`;
+      el.style.opacity = clamp(lt / .3) * (1 - o);
+      el.style.transform = `${outT} scale(${lerp(1.03, 1, easeOut(lt / 2))})`;
+      el.style.filter = outF;
+    } else if (it.kind === 'line') {
+      const k = easeOut(lt / 1.1);
+      el.style.opacity = clamp(k * 1.5) * (1 - o);
+      el.style.transform = `${outT} scaleX(${lerp(.2, 1, k)})`; el.style.filter = outF;
+    } else if (it.kind === 'pin') {
+      const k = easeOut(lt / .9), bounce = Math.sin(clamp(lt / .9) * Math.PI) * 18;
+      el.style.opacity = k * (1 - o); el.style.transform = `${outT} translateY(${(1 - k) * -40 - bounce * (1 - k)}px)`; el.style.filter = outF;
+    } else { // fade
+      const k = easeOut(lt / 1.0);
+      el.style.opacity = k * (1 - o);
+      el.style.transform = `translateY(${(1 - k) * 26 - 24 * o}px)`;
+      el.style.filter = (k < 1 || o > 0) ? `blur(${(1 - k) * 6 + o * 6}px)` : '';
+    }
+  }
+  drawFx(t);
+}
+
+// ---------- boot ----------
+window.ready = (async () => {
+  await document.fonts.ready;
+  await Promise.all(['Great Vibes', 'Cinzel', 'Cormorant Garamond', 'Amiri'].map(f => document.fonts.load(`40px "${f}"`, f === 'Amiri' ? 'بسم' : 'Aa')));
+  await document.fonts.load('italic 40px "Cormorant Garamond"');
+  await document.fonts.load('600 40px "Cormorant Garamond"');
+  drawBackground(); buildArch(); buildStrands(); setupScenes();
+  for (const c of CLUSTERS) await loadCluster(c);
+  render(0);
+  return true;
+})();
+window.render = render; window.DURATION = DURATION;
+
+// Live preview when opened directly in a browser (the video renderer passes ?render)
+if (!location.search.includes('render')) {
+  const fit = () => { const s = Math.min(innerWidth / 1080, innerHeight / 1920); const w = document.getElementById('wrap'); w.style.transform = `scale(${s})`; w.style.marginLeft = ((innerWidth - 1080 * s) / 2) + 'px'; };
+  addEventListener('resize', fit); fit();
+  window.ready.then(() => { const t0 = performance.now(); const loop = () => { render(((performance.now() - t0) / 1000) % (DURATION + 2)); requestAnimationFrame(loop); }; loop(); });
+} else document.body.classList.add('render');
+</script>
+</body>
+</html>
