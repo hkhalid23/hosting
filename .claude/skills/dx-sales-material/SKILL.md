@@ -109,14 +109,88 @@ Rules:
 - **Strong tile**: `gradient.brand` at 95%→75%, white text.
 - Text: white; body 70–80% white.
 
-### Light theme (insurer decks, print, documents)
-- Background #F3F6FB; glows at ≤16% opacity; watermark ~6%.
-- **Cards**: solid white, 1px navy 8% stroke, shadow `0 8 28 navy/6%`. Nested cards #EEF3FA.
-- **Featured card**: `gradient.brand` at 14%→6% with a #194EFF 35% stroke; navy text.
-- **Strong tile**: unchanged (solid blue gradient, white text).
-- Text: navy #0F1B2D; body 70–80%.
-- Logo: dark lettering (#3F4250) + gradient X.
-- **Product lockup tiles and app UI stay dark** (navy base) in both themes. They are brand assets and screens.
+### Light theme: "New theme" (insurer decks, print, documents)
+
+Source of truth: Figma section **"New theme"** (node 3477:7134, page "Page 31"), 11 reference slides:
+- 113 Cover
+- 114 Stat grid
+- 115 Question / playbooks
+- 116 Statement "Coaching"
+- 117 Solution (Daily/Weekly)
+- 118 Early evidence
+- 120 ROI chart
+- 121 Divider
+- 122 Statement "Context"
+- 123 Two-panel comparison
+- 119 Framework matrix
+
+The light theme is **not** the dark theme with colours inverted. It is a flat, editorial, consultancy-report language: white paper, hairline grids, edge-to-edge cells, solid blue accents, and purple used only for wayfinding.
+
+#### Light palette
+
+| Token | Value | Use |
+|---|---|---|
+| `light.bg` | **#FFFFFF** | Slide background (pure white) |
+| `light.surface` | **#F5F9FB** | Secondary panels, statement left half, footer band, background chevrons |
+| `light.surfaceAlt` | **#F7FBFD** | Chips/pills, alternate footer band |
+| `light.cellTint` | **#C7E6F4 @14%** | Checkerboard tint on alternating grid cells |
+| `light.ink` | **#13151C** | All primary text, line-art illustration, cover outline diamonds |
+| `light.inkMuted` | #13151C @75 / @60 | Captions @75, footnotes and confidentiality line @60 |
+| `light.hairline` | **#9BA0B2 @50%, 1px** | Grid rules and card strokes |
+| `light.chipStroke` | #13151C @8%, 1px | Chip/pill outline |
+| `light.featured` | **#194EFF @8%** (no stroke) | Featured/"DX" panel fill |
+| `light.headerTint` | #ECEFF9 / #194EFF @8–10% | Column-header pills, tag backgrounds |
+| `light.motif` | #194EFF @10% + #B1B1B1 @20%, layer at 52% | Corner chevron pattern in footer band |
+
+- **Blue** (#194EFF Secondary Blue) is the working accent in light. Use it for emphasis words, row and card titles, big-stat units, numerals, chart bars, divider bars and callout pills. Use #15B6FF only inside the brand gradient.
+- **Purple** (#7519FF) is reserved for **wayfinding**: the ◆ eyebrow diamond, the eyebrow label and the short accent bar on question slides. Never use it for content.
+- **No glass, no blur, no glows on content slides, no drop shadows.** The cover keeps two faint brand glows at 16% and 40%.
+
+#### Light typography (overrides §2 where different)
+
+| Role | Spec |
+|---|---|
+| Eyebrow | ◆ 12px #7519FF square rotated 45° + **Bold 24 UPPERCASE #7519FF**, 8px gap. On statement slides, letter-spaced +3. |
+| Headline | **SemiBold 48** or **Bold 40**, #13151C, one line, sentence case. Emphasis = Italic of the same weight in ink, or the key word in #194EFF. |
+| Cover title | Bold ~99, ink, with the key phrase in #194EFF ("Proving the ROI of **AI-Powered** Coaching"). Eyebrow above in **Bold 28 UPPERCASE ink** (not purple). |
+| Statement word | **Bold 112–132, `gradient.brand` / #194EFF, no period** ("Coaching", "Context") |
+| Statement body | Medium 36, ink; emphasis phrase in **SemiBold/Medium Italic #194EFF** |
+| Question headline | Bold 72, ink, with the payoff word(s) in #194EFF ("diminishing returns?") |
+| Big stat | Bold ~99, ink; unit Bold 40 #194EFF (%, ×, pts). Two-digit numbers zero-padded ("05%"). |
+| Row/card title | Bold 32–36; row labels in #194EFF, card titles in ink |
+| Numerals | "01–04" Bold 32–42 #194EFF (two-digit), or single digits SemiBold #194EFF in lists |
+| Body | Regular 18–24 ink (100% or @75) |
+| Takeaway | Medium 36 ink @90 centred, **or** Bold 24 #194EFF label + Medium 24 ink @90 sentence |
+| Footnote / confidential | Regular 18 ink @60, inside the footer band |
+
+#### Light layout grammar
+
+- **Margins 48px** (header at x=48, y≈40–48; headline baseline ~y=90–140). The content grid often runs **edge to edge** (x=0 → 1920).
+- **Hairline grid.** Full-width horizontal rules (#9BA0B2 @50, 1px) at the top and bottom of the content zone (≈ y 190–200 and 845–880), plus vertical rules between columns. Cells sit flush, with **no radius and no gaps**, like a report table. Alternate cells get `light.cellTint` (checkerboard).
+- **Footer band.** A full-width `light.surface` / `light.surfaceAlt` band, 160–235px tall, at the bottom. It holds the takeaway (or the assumptions plus confidentiality line). Flank it with the **corner chevron motif** (blue 10% + grey 20% chevrons at 52%) at both edges.
+- **Background chevrons.** Huge pale #F5F9FB chevron/diagonal shapes behind white content blocks, top and bottom (question and comparison slides).
+- **No logo or page number on content slides** in this theme. The logo appears on the cover only.
+- Rounded cards are the exception. When used: radius **16**, #F5F9FB fill + hairline stroke (neutral), or #194EFF @8% with no stroke (featured). Chips: radius ~8, #F7FBFD + 1px ink @8 stroke, SemiBold 24–32 ink.
+
+#### Light slide templates
+
+1. **Cover (113):** white bg; dark logo (412w) at (120,182); eyebrow Bold 28 ink uppercase → title Bold ~99 ink with blue key phrase → meta (3px ink bar + MONTH YEAR Medium 32 uppercase). Right side: **solid `gradient.brand` chevron** with the two diamonds as **thin ink outlines (5px #13151C)** instead of white fills; faint glows.
+2. **Stat grid (114):** 4 columns × 2 rows of hairline cells across the full width. The first column holds a blue Bold 32 row label + Regular 24 explainer. Stat cells have a checkerboard tint, a big ink number and a blue unit. Footer band carries the centred Medium 36 takeaway.
+3. **Question (115):** pale background chevrons; a full-width white band between two hairlines, split by a vertical rule. Left: Bold 72 question with blue payoff, **purple 72×6 accent bar**, Regular 32 lead-in. Right: centred cloud of chips (radius 8, #F7FBFD, hairline stroke, SemiBold 32).
+4. **Statement (116, 122):** 50/50 split with a vertical hairline. Left half #F5F9FB: spaced purple eyebrow, Bold 132 blue gradient word without a period, **72×6 ink accent bar**, Medium 36 body with blue italic emphasis. Right half white: **black single-line illustration** (e.g. a hand reaching for or holding a rope) over a pale #F5F9FB chevron watermark, fading to white top and bottom.
+5. **Solution / product (117):** header, then two halves split by a vertical hairline over a #F5F9FB strip. Each half has a **DAILY / WEEKLY tag**: a tinted blue parallelogram chip with Bold uppercase #194EFF + Medium Italic 40 ink word. Below it: explainer, then a dark phone showcase. Callout pills are solid #194EFF with white text (radius ~8). Coaching-type chips are white with a gradient hairline and a blue numeral.
+6. **Evidence (118):** left column of hairline cells with "01–04" numbered findings (Bold blue numerals, Bold 24 ink title, Regular body) in a checkerboard. Bottom-left: a "‹ Beta & Pilots ›" label with blue angle brackets + summary. Right column: three testimonial rows (name Bold 36, agency Regular, flag chip, big blue "+20%" stat, metric label, period note, context) with a cut-out portrait over a **solid #194EFF chevron** bleeding off the right edge.
+7. **ROI chart (120):** edge-to-edge row. Left column of two flush KPI cells (#F5F9FB featured with blue uppercase SemiBold 18 label, then white): Bold 140 "7%", Bold 140 "15" + blue "×". Right: chart with **flat solid #194EFF bars** (baseline bar #194EFF @20), dashed #194EFF break-even line with a blue uppercase label, ink labels. Footer band holds the assumptions and the confidentiality line.
+8. **Divider (121):** pure white; centred **Bold 80 ink** title (sentence case or uppercase) + **216×8 #194EFF bar, radius 3**; two giant **flat solid #194EFF chevrons** entering from the left and right edges, pointing inward. No logo.
+9. **Two-panel comparison (123):** pale background chevrons; two radius-16 panels with a 40 gap. Neutral: #F5F9FB + hairline. DX: #194EFF @8%. Each has a Bold 36 title, Regular 18 intro, and 5 items (blue numeral + SemiBold 24 title + Regular 18 body). Footer band: Bold 24 blue label + Medium 24 sentence.
+10. **Framework matrix (119):** row labels at the left (Bold 24 ink + Regular explainer + blue "See page" link). Column header pills #ECEFF9-style blue tint (radius 8). Framework tiles are white with a hairline (code Bold 36, subtitle Regular). Bullets use blue dots. The roadmap group sits inside a dashed #9BA0B2 outline. Personalisation cells use "01 / 02" blue numerals. Soft-skill tiles are blue-tinted with **Bold blue titles**.
+
+#### Light do / don't
+- **Do** use white paper, hairlines, flush cells, a solid blue accent, and purple only on eyebrows and question accent bars.
+- **Do** keep phones, app UI and product lockup tiles dark. They read as screens and brand assets.
+- **Don't** use glass blur, glows, drop shadows, gradient card fills, or rounded cards everywhere.
+- **Don't** put the logo or page numbers on light content slides, or end statement words with a period.
+- **Don't** use #0F1B2D navy as the light ink. The light ink is **#13151C**.
 
 ---
 
@@ -248,7 +322,7 @@ Create one COLOR collection with modes **Dark** and **Light**, named `brand/blue
 
 ## 12. Workflow when using this skill
 
-1. Identify the format (deck 16:9, one-pager, A4 leaflet, 9:16 video, social) and the theme (dark default; light for insurer and print).
+1. Identify the format (deck 16:9, one-pager, A4 leaflet, 9:16 video, social) and the theme (dark default; light for insurer and print). **For light, follow §4 "New theme" templates and grammar, not §6/§5 dark chrome.**
 2. Map the content to the narrative arc (§9) and choose one template per page (§6).
 3. Apply the tokens (§3), type scale (§2) and grid (§5) exactly.
 4. Write headlines as one claim with one emphasised word, and end with a takeaway.
