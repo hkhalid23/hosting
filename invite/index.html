@@ -37,6 +37,7 @@
   .caps.ink { color: var(--ink); }
   .serif { font-family: 'Cormorant Garamond', serif; font-size: 46px; color: var(--ink); line-height: 1.25; }
   .serif.it { font-style: italic; }
+  .serif { font-variant-numeric: lining-nums; }
   .script { font-family: 'Great Vibes', cursive; color: var(--rose); line-height: 1; }
   .gold-text {
     background: linear-gradient(100deg, #9a7130 0%, #d9b766 40%, #f3dea1 50%, #c9a256 60%, #9a7130 100%);
@@ -54,8 +55,9 @@
   .time { font-family: 'Cinzel', serif; font-size: 44px; letter-spacing: 0.12em; color: var(--ink); }
   .time small { font-size: 0.7em; }
 
-  .sum-row .script { font-size: 120px; }
-  .sum-line { font-family: 'Cinzel', serif; font-size: 29px; letter-spacing: 0.14em; color: var(--ink); }
+  .names { font-size: 116px; line-height: 1.15; text-shadow: 0 0 40px rgba(240, 190, 205, .7); }
+  .names .amp { color: var(--gold); font-size: 0.6em; padding: 0 0.15em; }
+  .venue { font-size: 46px; font-weight: 600; letter-spacing: 0.08em; color: var(--rose); }
   .wipe { -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 45%, transparent 55%, transparent 100%); -webkit-mask-size: 300% 100%; }
   .ch { display: inline-block; white-space: pre; }
 </style>
@@ -74,65 +76,57 @@
 
   <!-- Scene 1: intro -->
   <div class="scene" id="s1">
-    <div class="caps" style="top:650px" data-a="letters">With the blessings of Allah</div>
-    <div class="serif it" style="top:740px" data-a="fade">we request the honour of your presence</div>
-    <div class="serif it" style="top:798px" data-a="fade">at the</div>
-    <div class="script" style="top:870px;font-size:190px" data-a="wipe">Wedding</div>
-    <div class="script" style="top:1060px;font-size:130px" data-a="wipe">Celebrations</div>
-    <div class="divider" style="top:1235px" data-a="line" data-orn="1"></div>
-    <div class="caps ink" style="top:1310px;font-size:34px" data-a="letters">Barat &amp; Walima</div>
-    <div class="serif" style="top:1370px;font-size:50px;color:var(--rose)" data-a="fade">21 &amp; 22 November 2026</div>
+    <div class="caps" style="top:690px" data-a="letters">With the blessings of Allah</div>
+    <div class="serif it" style="top:780px;font-size:50px" data-a="fade">We request the honour of your presence</div>
+    <div class="serif it" style="top:845px;font-size:50px" data-a="fade">at the wedding celebrations of</div>
+    <div class="divider" style="top:955px" data-a="line" data-orn="0"></div>
+    <div class="script names" style="top:1035px" data-a="wipe">Mehtab <span class="amp">&amp;</span> Hamza</div>
+    <div class="divider" style="top:1215px" data-a="line" data-orn="1"></div>
   </div>
 
   <!-- Scene 2: Barat -->
   <div class="scene" id="s2">
-    <div class="caps" style="top:670px" data-a="letters">Join us for the</div>
-    <div class="script" style="top:740px;font-size:250px" data-a="wipe">Barat</div>
-    <div class="divider" style="top:1010px" data-a="line" data-orn="1"></div>
-    <div style="top:1100px" data-a="fade">
+    <div class="caps" style="top:640px" data-a="letters">Join us for the</div>
+    <div class="script" style="top:700px;font-size:210px" data-a="wipe">Barat</div>
+    <div style="top:930px" data-a="fade">
       <div class="dateblock"><div class="side">Saturday</div><div class="day">21</div><div class="side">November</div></div>
     </div>
-    <div class="caps ink" style="top:1280px;font-size:32px" data-a="letters">2026</div>
-    <div class="time" style="top:1380px" data-a="fade"><span class="serif it" style="font-size:44px">at</span>&nbsp; 12:30 PM</div>
+    <div class="caps ink" style="top:1065px;font-size:30px" data-a="letters">2026</div>
+    <div class="time" style="top:1125px" data-a="fade">12:30 PM &nbsp;–&nbsp; 4:00 PM</div>
+    <div class="divider" style="top:1205px" data-a="line" data-orn="1"></div>
+    <div class="caps" style="top:1265px;font-size:26px" data-a="letters">Venue</div>
+    <div class="caps venue" style="top:1310px" data-a="wipe">Grandeur Event Complex</div>
+    <div class="serif" style="top:1378px;font-size:38px" data-a="fade">Main Grand Trunk Road, Manawan,</div>
+    <div class="serif it" style="top:1426px;font-size:38px" data-a="fade">Rehmatpura Nai Abadi, Lahore 54000</div>
   </div>
 
   <!-- Scene 3: Walima -->
   <div class="scene" id="s3">
-    <div class="caps" style="top:670px" data-a="letters">Join us for the</div>
-    <div class="script" style="top:740px;font-size:250px" data-a="wipe">Walima</div>
-    <div class="divider" style="top:1010px" data-a="line" data-orn="1"></div>
-    <div style="top:1100px" data-a="fade">
+    <div class="caps" style="top:640px" data-a="letters">Join us for the</div>
+    <div class="script" style="top:700px;font-size:210px" data-a="wipe">Walima</div>
+    <div style="top:930px" data-a="fade">
       <div class="dateblock"><div class="side">Sunday</div><div class="day">22</div><div class="side">November</div></div>
     </div>
-    <div class="caps ink" style="top:1280px;font-size:32px" data-a="letters">2026</div>
-    <div class="time" style="top:1380px" data-a="fade">1:00 PM &nbsp;–&nbsp; 3:00 PM</div>
+    <div class="caps ink" style="top:1065px;font-size:30px" data-a="letters">2026</div>
+    <div class="time" style="top:1125px" data-a="fade">1:00 PM &nbsp;–&nbsp; 3:00 PM</div>
+    <div class="divider" style="top:1205px" data-a="line" data-orn="1"></div>
+    <div class="caps" style="top:1265px;font-size:26px" data-a="letters">Venue</div>
+    <div class="caps venue" style="top:1310px" data-a="wipe">Aiwan-e-Akbari</div>
+    <div class="caps ink" style="top:1378px;font-size:30px;letter-spacing:0.25em" data-a="letters">Hall No. 03</div>
+    <div class="serif" style="top:1426px;font-size:38px" data-a="fade">Main Ferozepur Road,</div>
+    <div class="serif it" style="top:1474px;font-size:38px" data-a="fade">opposite Atari Saroba Station</div>
   </div>
 
-  <!-- Scene 4: Venue -->
+  <!-- Scene 4: closing (final hold) -->
   <div class="scene" id="s4">
-    <div class="caps" style="top:660px" data-a="letters">Venue</div>
-    <div style="top:725px" data-a="pin" id="pin"></div>
-    <div class="caps" style="top:900px;font-size:72px;letter-spacing:0.12em;color:var(--rose);font-weight:600" data-a="wipe">Awan-e-Akbar</div>
-    <div class="caps ink" style="top:1020px;font-size:40px;letter-spacing:0.3em" data-a="letters">Hall No. 03</div>
-    <div class="divider" style="top:1140px" data-a="line" data-orn="1"></div>
-    <div class="serif" style="top:1220px;font-size:50px" data-a="fade">Main Ferozepur Road,</div>
-    <div class="serif it" style="top:1285px;font-size:50px" data-a="fade">opposite Atari Saroba Station</div>
-  </div>
-
-  <!-- Scene 5: summary (final hold) -->
-  <div class="scene" id="s5">
-    <div class="serif it" style="top:605px;font-size:44px" data-a="fade">we look forward to celebrating with you</div>
-    <div class="script" style="top:670px;font-size:140px" data-a="wipe">Barat</div>
-    <div class="sum-line" style="top:830px" data-a="fade">Saturday · 21 November 2026</div>
-    <div class="sum-line" style="top:878px;color:var(--rose)" data-a="fade">12:30 PM</div>
-    <div class="divider" style="top:945px" data-a="line" data-orn="0"></div>
-    <div class="script" style="top:980px;font-size:140px" data-a="wipe">Walima</div>
-    <div class="sum-line" style="top:1140px" data-a="fade">Sunday · 22 November 2026</div>
-    <div class="sum-line" style="top:1188px;color:var(--rose)" data-a="fade">1:00 PM – 3:00 PM</div>
-    <div class="divider" style="top:1255px" data-a="line" data-orn="0"></div>
-    <div class="caps ink" style="top:1300px;font-size:31px;letter-spacing:0.2em" data-a="fade">Awan-e-Akbar · Hall No. 03</div>
-    <div class="serif" style="top:1348px;font-size:38px" data-a="fade">Main Ferozepur Road, opp. Atari Saroba Station</div>
-    <div class="script" style="top:1415px;font-size:66px;color:var(--gold)" data-a="fade">Your presence will be our honour</div>
+    <div class="serif it" style="top:700px;font-size:54px" data-a="fade">Your presence would mean</div>
+    <div class="serif it" style="top:768px;font-size:54px" data-a="fade">the world to us.</div>
+    <div class="divider" style="top:870px" data-a="line" data-orn="1"></div>
+    <div class="serif" style="top:945px;font-size:46px" data-a="fade">Please join us as we celebrate</div>
+    <div class="script" style="top:1015px;font-size:120px" data-a="wipe">the beginning</div>
+    <div class="script" style="top:1150px;font-size:120px" data-a="wipe">of our forever</div>
+    <div class="divider" style="top:1320px" data-a="line" data-orn="0"></div>
+    <div class="script" style="top:1375px;font-size:80px;color:var(--gold)" data-a="fade">Mehtab &amp; Hamza</div>
   </div>
 
   <div id="flora-front"></div>
@@ -149,14 +143,13 @@ const easeOut = x => 1 - Math.pow(1 - clamp(x), 3);
 const easeInOut = x => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
 const lerp = (a, b, k) => a + (b - a) * k;
 
-const DURATION = 36;
+const DURATION = 38;
 const SCENES = [
   // id, in, out (null = holds to the end)
-  ['s1', 2.6, 9.0],
-  ['s2', 9.8, 15.8],
-  ['s3', 16.6, 22.6],
-  ['s4', 23.4, 29.2],
-  ['s5', 30.0, null],
+  ['s1', 2.6, 10.4],
+  ['s2', 11.2, 19.6],
+  ['s3', 20.4, 28.8],
+  ['s4', 29.6, null],
 ];
 
 // ---------- background: ivory paper + watercolour washes ----------
@@ -368,11 +361,6 @@ function ornament(full) {
     <path d="M${h},10 L${h + 8},20 L${h},30 L${h - 8},20 Z" fill="#c25b7a"/>
   </svg>`;
 }
-function pinIcon() {
-  return `<svg width="90" height="110" viewBox="0 0 90 110"><defs><linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9a7130"/><stop offset=".5" stop-color="#f1d792"/><stop offset="1" stop-color="#a77d36"/></linearGradient></defs>
-    <path d="M45,104 C45,104 10,62 10,40 A35,35 0 0 1 80,40 C80,62 45,104 45,104 Z" fill="none" stroke="url(#pg)" stroke-width="4"/>
-    <circle cx="45" cy="40" r="13" fill="#c25b7a" opacity=".85"/></svg>`;
-}
 
 // ---------- scene element setup ----------
 const items = []; // {el, scene, kind, start, chars}
@@ -383,13 +371,12 @@ function setupScenes() {
     for (const el of sc.children) {
       const kind = el.dataset.a; if (!kind) continue;
       if (kind === 'line') el.innerHTML = ornament(el.dataset.orn === '1');
-      if (kind === 'pin') el.innerHTML = pinIcon();
       if (kind === 'letters') {
         const txt = el.textContent; el.textContent = '';
         for (const ch of txt) { const s = document.createElement('span'); s.className = 'ch'; s.textContent = ch; el.appendChild(s); }
       }
       if (kind === 'wipe') el.classList.add('wipe');
-      const step = sid === 's5' ? 0.32 : 0.42;
+      const step = { s1: 0.6, s2: 0.36, s3: 0.36, s4: 0.55 }[sid];
       items.push({ el, sid, kind, start: tin + k * step, chars: el.querySelectorAll('.ch') });
       k++;
     }
@@ -478,9 +465,6 @@ function render(t) {
       const k = easeOut(lt / 1.1);
       el.style.opacity = clamp(k * 1.5) * (1 - o);
       el.style.transform = `${outT} scaleX(${lerp(.2, 1, k)})`; el.style.filter = outF;
-    } else if (it.kind === 'pin') {
-      const k = easeOut(lt / .9), bounce = Math.sin(clamp(lt / .9) * Math.PI) * 18;
-      el.style.opacity = k * (1 - o); el.style.transform = `${outT} translateY(${(1 - k) * -40 - bounce * (1 - k)}px)`; el.style.filter = outF;
     } else { // fade
       const k = easeOut(lt / 1.0);
       el.style.opacity = k * (1 - o);
