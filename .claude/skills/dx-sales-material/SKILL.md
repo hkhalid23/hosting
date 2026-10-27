@@ -109,88 +109,156 @@ Rules:
 - **Strong tile**: `gradient.brand` at 95%→75%, white text.
 - Text: white; body 70–80% white.
 
-### Light theme: "New theme" (insurer decks, print, documents)
+### Light theme: "New theme" v2 (insurer decks, print, documents)
 
-Source of truth: Figma section **"New theme"** (node 3477:7134, page "Page 31"), 11 reference slides:
-- 113 Cover
-- 114 Stat grid
-- 115 Question / playbooks
-- 116 Statement "Coaching"
-- 117 Solution (Daily/Weekly)
-- 118 Early evidence
-- 120 ROI chart
-- 121 Divider
-- 122 Statement "Context"
-- 123 Two-panel comparison
-- 119 Framework matrix
+**Source of truth:** the Figma section **"New theme"**, node **3550:44786**, on the page "Using AI to unlock the human Potential". It is the final 31-slide deck "Proving the ROI of AI-Powered Coaching". The earlier draft (3477:7134) is superseded.
 
-The light theme is **not** the dark theme with colours inverted. It is a flat, editorial, consultancy-report language: white paper, hairline grids, edge-to-edge cells, solid blue accents, and purple used only for wayfinding.
+**In one line:** an editorial consultancy report with a product showroom inside it.
+- White paper, hairline grids, flush cells and solid blue accents.
+- Purple only for wayfinding.
+- Product moments switch to **dark showcase panels** that glow like a screen.
 
 #### Light palette
 
 | Token | Value | Use |
 |---|---|---|
-| `light.bg` | **#FFFFFF** | Slide background (pure white) |
-| `light.surface` | **#F5F9FB** | Secondary panels, statement left half, footer band, background chevrons |
-| `light.surfaceAlt` | **#F7FBFD** | Chips/pills, alternate footer band |
-| `light.cellTint` | **#C7E6F4 @14%** | Checkerboard tint on alternating grid cells |
-| `light.ink` | **#13151C** | All primary text, line-art illustration, cover outline diamonds |
+| `light.bg` | **#FFFFFF** | Slide background |
+| `light.surface` | **#F5F9FB** | Sidebars, statement left half, footer band, label cells, background chevrons, goal chips |
+| `light.surfaceAlt` | **#F7FBFD** | Chips and pills |
+| `light.cellTint` | **#C7E6F4 @14%** | Checkerboard tint on alternate grid cells |
+| `light.featured` | **#194EFF @8%** | Featured panels, "DX" side, centre columns, leader lane, blue-tinted header cells |
+| `light.ink` | **#13151C** | All text. Also the **dark showcase panel** fill |
 | `light.inkMuted` | #13151C @75 / @60 | Captions @75, footnotes and confidentiality line @60 |
-| `light.hairline` | **#9BA0B2 @50%, 1px** | Grid rules and card strokes |
-| `light.chipStroke` | #13151C @8%, 1px | Chip/pill outline |
-| `light.featured` | **#194EFF @8%** (no stroke) | Featured/"DX" panel fill |
-| `light.headerTint` | #ECEFF9 / #194EFF @8–10% | Column-header pills, tag backgrounds |
-| `light.motif` | #194EFF @10% + #B1B1B1 @20%, layer at 52% | Corner chevron pattern in footer band |
+| `light.hairline` | **#9BA0B2 @50%, 1px** | Grid rules, sidebar separators, card strokes |
+| `light.chipStroke` | #13151C @8–10%, 1px | Chip and goal-chip outline |
+| `light.accent` | **#194EFF** | Emphasis words, numerals, units, row labels, bars, solid header pills, divider bar |
+| `light.wayfinding` | **#7519FF** | ◆ eyebrow + eyebrow label, question-slide accent bar |
+| `light.motif` | #194EFF @10% + #B1B1B1 @20%, layer at 52% | Corner chevron pattern at both ends of the footer band |
+| `light.lockupStroke` | gradient **#7519FF → #FFFFFF → #194EFF**, 1–1.4px | Outline of product lockup tiles |
+| `light.lockupGlow` | #194EFF + #9F19FF ellipses, layer blur 120–164 | Soft glow inside lockup tiles |
 
-- **Blue** (#194EFF Secondary Blue) is the working accent in light. Use it for emphasis words, row and card titles, big-stat units, numerals, chart bars, divider bars and callout pills. Use #15B6FF only inside the brand gradient.
-- **Purple** (#7519FF) is reserved for **wayfinding**: the ◆ eyebrow diamond, the eyebrow label and the short accent bar on question slides. Never use it for content.
-- **No glass, no blur, no glows on content slides, no drop shadows.** The cover keeps two faint brand glows at 16% and 40%.
+Rules:
+- **Blue #194EFF does the work.** Use #15B6FF only inside `gradient.brand` (statement words, cover chevron, divider hero chevron).
+- **Purple is wayfinding**, plus the purple half of the lockup tiles. Never use it for content text.
+- **On white areas: no glass, blur or drop shadows.** Depth lives only in the dark showcase panels.
 
-#### Light typography (overrides §2 where different)
+#### Light typography (overrides §2)
 
 | Role | Spec |
 |---|---|
-| Eyebrow | ◆ 12px #7519FF square rotated 45° + **Bold 24 UPPERCASE #7519FF**, 8px gap. On statement slides, letter-spaced +3. |
-| Headline | **SemiBold 48** or **Bold 40**, #13151C, one line, sentence case. Emphasis = Italic of the same weight in ink, or the key word in #194EFF. |
-| Cover title | Bold ~99, ink, with the key phrase in #194EFF ("Proving the ROI of **AI-Powered** Coaching"). Eyebrow above in **Bold 28 UPPERCASE ink** (not purple). |
-| Statement word | **Bold 112–132, `gradient.brand` / #194EFF, no period** ("Coaching", "Context") |
-| Statement body | Medium 36, ink; emphasis phrase in **SemiBold/Medium Italic #194EFF** |
-| Question headline | Bold 72, ink, with the payoff word(s) in #194EFF ("diminishing returns?") |
-| Big stat | Bold ~99, ink; unit Bold 40 #194EFF (%, ×, pts). Two-digit numbers zero-padded ("05%"). |
-| Row/card title | Bold 32–36; row labels in #194EFF, card titles in ink |
-| Numerals | "01–04" Bold 32–42 #194EFF (two-digit), or single digits SemiBold #194EFF in lists |
-| Body | Regular 18–24 ink (100% or @75) |
-| Takeaway | Medium 36 ink @90 centred, **or** Bold 24 #194EFF label + Medium 24 ink @90 sentence |
-| Footnote / confidential | Regular 18 ink @60, inside the footer band |
+| Eyebrow | ◆ 12px #7519FF (rotated square) + **Bold 24 UPPERCASE #7519FF**, 8px gap. On statement slides: SemiBold 26, +3 tracking |
+| Headline | **Bold 40, #13151C, one line**, sentence case. Emphasis: Medium Italic in ink ("*with* and *for*") or the key word in #194EFF |
+| Cover title | Bold 112, ink, key phrase in #194EFF. Eyebrow **ExtraBold 32 UPPERCASE ink** |
+| Statement word | **ExtraBold 132, `gradient.brand`, no period** ("Coaching", "Context", "People") |
+| Statement body | SemiBold 36 ink; emphasis **SemiBold Italic #194EFF** |
+| Question headline | Bold 72 ink, payoff words #194EFF |
+| Divider title | **Bold 72 UPPERCASE ink**, centred |
+| Big stat | Bold ~99–140 ink; unit Bold 40 #194EFF (%, ×, pts); zero-padded ("05%") |
+| Row/label title | Bold 32–36 #194EFF (row labels: "Effort Signals", "Manpower & Active Ratio") |
+| Numerals | **Bold 32–42 #194EFF, two-digit "01–07"** everywhere (lists, features, FAQs, chips) |
+| Section label | Bold 18 UPPERCASE +2 #194EFF ("LIVE TODAY", "PILOT DETAILS", "WHAT THE RESEARCH SAYS") above a hairline |
+| Card title | Bold 22–26 ink |
+| Body | Regular 15–24 ink @75 |
+| On dark showcase | numeral Bold 32 #194EFF · title **Bold 26 #FFFFFF** · body Regular 18 #F2F2F2 @80 |
+| Takeaway (footer band) | Bold 24 #194EFF label + Medium 24 ink @90 sentence, **or** a centred Medium 30–36 sentence with a SemiBold Italic blue phrase |
+| Closing name | Bold 112 ink; role ExtraBold 32 #194EFF UPPERCASE; contact Medium 32 ink |
 
 #### Light layout grammar
 
-- **Margins 48px** (header at x=48, y≈40–48; headline baseline ~y=90–140). The content grid often runs **edge to edge** (x=0 → 1920).
-- **Hairline grid.** Full-width horizontal rules (#9BA0B2 @50, 1px) at the top and bottom of the content zone (≈ y 190–200 and 845–880), plus vertical rules between columns. Cells sit flush, with **no radius and no gaps**, like a report table. Alternate cells get `light.cellTint` (checkerboard).
-- **Footer band.** A full-width `light.surface` / `light.surfaceAlt` band, 160–235px tall, at the bottom. It holds the takeaway (or the assumptions plus confidentiality line). Flank it with the **corner chevron motif** (blue 10% + grey 20% chevrons at 52%) at both edges.
-- **Background chevrons.** Huge pale #F5F9FB chevron/diagonal shapes behind white content blocks, top and bottom (question and comparison slides).
-- **No logo or page number on content slides** in this theme. The logo appears on the cover only.
-- Rounded cards are the exception. When used: radius **16**, #F5F9FB fill + hairline stroke (neutral), or #194EFF @8% with no stroke (featured). Chips: radius ~8, #F7FBFD + 1px ink @8 stroke, SemiBold 24–32 ink.
+- **Header:** eyebrow at (48, 40), Bold 40 headline below it. **Content zone starts at a full-width hairline at y = 196.**
+- **Edge-to-edge grids:** cells run from x = 0 to 1920 with no radius and no gaps, separated by hairlines. Alternate cells use `cellTint` or `surface` (checkerboard). Label columns (the first column) are `surface` or `featured`.
+- **Column splits used:** 2 × 960 · 3 × 640 · 4 × 480 · sidebar 560 + 1360 · label column 400 + 1520 · triple 720 / 480 / 720 (team).
+- **Footer band:** full width at **y = 920, 160 tall**, `surface` fill, with the corner chevron motif at both ends. Every content slide ends here with a takeaway, sources, assumptions or a process flow.
+- **Inner padding:** 48 inside cells. Cell text blocks are vertically centred.
+- **No logo and no page numbers on content slides.** The logo appears on the cover only.
+- **Rounded elements are the exception:**
+  - Panels: radius 16 (comparison panels).
+  - Chips and goal chips: radius 8.
+  - Solid header pills: radius 12.
+  - Lockup tiles: radius 12–16.
+  - Bars: radius 3.
 
-#### Light slide templates
+#### Light components
 
-1. **Cover (113):** white bg; dark logo (412w) at (120,182); eyebrow Bold 28 ink uppercase → title Bold ~99 ink with blue key phrase → meta (3px ink bar + MONTH YEAR Medium 32 uppercase). Right side: **solid `gradient.brand` chevron** with the two diamonds as **thin ink outlines (5px #13151C)** instead of white fills; faint glows.
-2. **Stat grid (114):** 4 columns × 2 rows of hairline cells across the full width. The first column holds a blue Bold 32 row label + Regular 24 explainer. Stat cells have a checkerboard tint, a big ink number and a blue unit. Footer band carries the centred Medium 36 takeaway.
-3. **Question (115):** pale background chevrons; a full-width white band between two hairlines, split by a vertical rule. Left: Bold 72 question with blue payoff, **purple 72×6 accent bar**, Regular 32 lead-in. Right: centred cloud of chips (radius 8, #F7FBFD, hairline stroke, SemiBold 32).
-4. **Statement (116, 122):** 50/50 split with a vertical hairline. Left half #F5F9FB: spaced purple eyebrow, Bold 132 blue gradient word without a period, **72×6 ink accent bar**, Medium 36 body with blue italic emphasis. Right half white: **black single-line illustration** (e.g. a hand reaching for or holding a rope) over a pale #F5F9FB chevron watermark, fading to white top and bottom.
-5. **Solution / product (117):** header, then two halves split by a vertical hairline over a #F5F9FB strip. Each half has a **DAILY / WEEKLY tag**: a tinted blue parallelogram chip with Bold uppercase #194EFF + Medium Italic 40 ink word. Below it: explainer, then a dark phone showcase. Callout pills are solid #194EFF with white text (radius ~8). Coaching-type chips are white with a gradient hairline and a blue numeral.
-6. **Evidence (118):** left column of hairline cells with "01–04" numbered findings (Bold blue numerals, Bold 24 ink title, Regular body) in a checkerboard. Bottom-left: a "‹ Beta & Pilots ›" label with blue angle brackets + summary. Right column: three testimonial rows (name Bold 36, agency Regular, flag chip, big blue "+20%" stat, metric label, period note, context) with a cut-out portrait over a **solid #194EFF chevron** bleeding off the right edge.
-7. **ROI chart (120):** edge-to-edge row. Left column of two flush KPI cells (#F5F9FB featured with blue uppercase SemiBold 18 label, then white): Bold 140 "7%", Bold 140 "15" + blue "×". Right: chart with **flat solid #194EFF bars** (baseline bar #194EFF @20), dashed #194EFF break-even line with a blue uppercase label, ink labels. Footer band holds the assumptions and the confidentiality line.
-8. **Divider (121):** pure white; centred **Bold 80 ink** title (sentence case or uppercase) + **216×8 #194EFF bar, radius 3**; two giant **flat solid #194EFF chevrons** entering from the left and right edges, pointing inward. No logo.
-9. **Two-panel comparison (123):** pale background chevrons; two radius-16 panels with a 40 gap. Neutral: #F5F9FB + hairline. DX: #194EFF @8%. Each has a Bold 36 title, Regular 18 intro, and 5 items (blue numeral + SemiBold 24 title + Regular 18 body). Footer band: Bold 24 blue label + Medium 24 sentence.
-10. **Framework matrix (119):** row labels at the left (Bold 24 ink + Regular explainer + blue "See page" link). Column header pills #ECEFF9-style blue tint (radius 8). Framework tiles are white with a hairline (code Bold 36, subtitle Regular). Bullets use blue dots. The roadmap group sits inside a dashed #9BA0B2 outline. Personalisation cells use "01 / 02" blue numerals. Soft-skill tiles are blue-tinted with **Bold blue titles**.
+- **Solid header pill:** #194EFF fill, radius 12, 48 tall, SemiBold 20 white. Used for framework column heads (Frontline / Managers / Managers of Managers).
+- **Header cell:** a full-cell column header with a tinted label (SemiBold 14 UPPERCASE #194EFF over Bold 32 ink). The **chosen or top tier is solid #194EFF** with white text (Performer).
+- **Status chip:** small radius-8 chip with Bold 12 UPPERCASE +1.5 text. **Planned or dated** (NOVEMBER, EARLY Q1, PLANNED): #F7FBFD fill, #194EFF text. **In progress:** #F9CF44 @45% fill, ink text.
+- **Goal chip:** stacked numeral + label tile, #F5F9FB fill, 1px ink @10 stroke, radius 8. Laid out three across ("01 Product Knowledge").
+- **Product lockup tile (light):** **transparent or white tile with the gradient stroke (#7519FF → #FFFFFF → #194EFF)**, radius 12–16, soft blue and purple glows inside. The wordmark is in **ink with purple/blue gradient accents** ("DX" ink, icon letters in purple→ink gradients). **This replaces the dark navy tile on white slides.** Lockups are now redrawn per product: INTELLIGENT COACHING, DX COACH, DX LEARN, AI CUSTOMER ROLE PLAY, VIRTUAL JOINT FIELDWORK, AGENCY LEADER AVATAR.
+- **Dark showcase panel:** a **#13151C** block (product slides 19–24, customisation screen row, solution slide).
+  - Lit by two **#194EFF ellipses at 40% with ~100 layer blur** behind the phones.
+  - Phones carry a drop shadow (#13151C @80, r28).
+  - **Floating UI cards break out of the phone** using background blur 28.
+  - Columns are split by hairlines.
+  - Captions sit inside the dark panel (blue numeral, white title, light-grey body).
+- **Callout pill on UI:** solid #194EFF, white Medium text, radius ~8 ("The DX App provides 24/7 guidance").
+- **Tag chip (DAILY / WEEKLY):** blue-tint parallelogram with Bold UPPERCASE #194EFF, next to a Medium Italic 40 ink word.
+- **SOLUTIONS tag:** #194EFF @10 mini-chip ("SOLUTIONS" Bold 13 +1.5) + Medium Italic 18 role.
+- **Process flow:** chips joined by blue arrows "→"; the final step is a solid #194EFF chip.
+
+#### Light illustration
+
+- **Statement slides use single-line art** on the right (white) half, over a pale #F5F9FB chevron watermark that fades to white at the top and bottom.
+  - Stroke: 2px gradient **#194EFF → #13151C → #13151C → #194EFF**, so the line starts and ends in blue and runs ink in the middle.
+  - Each word has its own metaphor:
+    - **Coaching:** a hand gripping a rope.
+    - **Context:** interlocking puzzle pieces on a flowing line.
+    - **People:** two face profiles drawn in one continuous line.
+  - New statement slides follow the same idea: one continuous line, one human metaphor, blue ends.
+
+#### Light slide templates (31-slide reference)
+
+1. **Cover:** white background, dark logo (412w), ExtraBold 32 eyebrow, Bold 112 title with a blue key phrase, meta row (3px ink bar + MONTH YEAR Medium 32). On the right, the **solid `gradient.brand` chevron** with the two diamonds as **thin ink outlines**.
+2. **Stat grid:** 4 × 2 hairline grid. The label column has blue Bold 32 titles. Stat cells use a checkerboard tint. The footer band holds a centred Medium 36 takeaway.
+3. **Question:** pale background chevrons; a white band between hairlines, split 50/50. Left: Bold 72 question with a blue payoff, purple 72×6 bar, lead-in. Right: a chip cloud.
+4. **Statement** ("Coaching", "Context", "People"): 50/50 split.
+   - Left (#F5F9FB): spaced purple eyebrow, ExtraBold 132 gradient word, 72×6 ink bar, SemiBold 36 body.
+   - Right: single-line art (see Light illustration).
+5. **Solution:** two halves with DAILY / WEEKLY tag chips and dark phones on a pale strip, blue callout pills, and "05 DX Coaching Types" chips.
+6. **Evidence:** a 2 × 2 checkerboard of "01–04" findings, a "‹ Beta & Pilots ›" cell, and three testimonial rows with cut-out portraits over solid blue chevrons.
+7. **ROI chart:** two flush KPI cells on the left (`surface` then white), a flat solid-blue bar chart, dashed blue break-even line, and a footer band with assumptions plus the confidentiality line.
+8. **Divider (new):**
+   - A **sequence of four huge chevrons sweeping left to right**: the first is solid `gradient.brand`, the next fades to blue @10, then two in #F5F9FB.
+   - A **white title card** (880 × 184, padding 32) is centred on top: optional purple ◆ "APPENDIX 1" eyebrow, Bold 72 UPPERCASE ink title, 216 × 8 #194EFF bar (radius 3).
+9. **Two-panel comparison** (governance): two radius-16 panels, neutral (#F5F9FB + hairline) and DX (#194EFF @8). Each holds "01–05" blue numerals with Bold title and body. The footer band ends with a blue label and a sentence.
+10. **Framework matrix:** row labels on the left. **Solid blue header pills** on the columns. White framework tiles with a hairline. The roadmap group sits in a dashed outline. Personalisation cells use "01 / 02". Soft-skill tiles are blue-tinted.
+11. **Team:** three columns (720 / 480 / 720).
+    - Left: "The Team" rows (64px circular photo, Bold 24 name, blue role chip, credentials).
+    - Centre: a #194EFF @8 column with "01–03" statements.
+    - Right: "Advisors".
+    - Footer band: centred sentence with a blue italic close.
+12. **Swimlane journey:** three lanes (Agent / Leader / DignifyX). The Leader lane is `featured`. Milestone dots are blue with a white ring. Key sessions are solid blue with "Leaders' Choice" ink tags. The insurer side column (`surface`) carries SOLUTIONS tags and chips.
+13. **Pilot details:**
+    - Left: big stat cells (100 / 3+3 / 18) with details.
+    - Right: objectives with a **solid blue "40+" tile** and a `surface` scorecard tile.
+14. **Features list:** "LIVE TODAY" vs "IN DEVELOPMENT" (`surface`) halves, light lockup tiles, status chips above the descriptions.
+15. **Product detail:**
+    - A **560px `surface` sidebar**: light lockup tile, For the Agent / For the Leader / For the Insurer separated by hairlines, "Design Note" in blue, status chip at the bottom left.
+    - A **1360px dark showcase panel** with 2–3 glowing phone groups and in-panel captions.
+16. **Learning science:** 2 × 3 grid, research vs ground truth, with a checkerboard. Footer band: Bold "Sources" label + small citations.
+17. **Scoring:** a 400px label column (Effort `surface`, Effectiveness `featured`) and 3 + 4 tinted cells numbered 01–07. Footer band: "One Score, Three Readings" with the readings in blue.
+18. **Goal tracks:** three 640 columns with header cells (Explorer and Builder tinted, **Performer solid blue**), "FOCUS" + Bold blue word, description, and **three goal chips across** at the bottom.
+19. **Customisation:** four 480 columns with a title row, a **dark screen strip** (#13151C with phones), "DignifyX Default" / "Tailoring for the Insurer" (blue). Footer band: Recommendation.
+20. **FAQ:** three columns with "01–03" header cells (`surface` / `featured` / `featured`) and status chips; Q&A with a blue "Q:". Footer band: process-flow chips ending in solid blue.
+21. **Closing:** the cover layout. ExtraBold 32 blue role eyebrow, Bold 112 name, Medium 32 contact, values line with blue pipes.
 
 #### Light do / don't
-- **Do** use white paper, hairlines, flush cells, a solid blue accent, and purple only on eyebrows and question accent bars.
-- **Do** keep phones, app UI and product lockup tiles dark. They read as screens and brand assets.
-- **Don't** use glass blur, glows, drop shadows, gradient card fills, or rounded cards everywhere.
-- **Don't** put the logo or page numbers on light content slides, or end statement words with a period.
-- **Don't** use #0F1B2D navy as the light ink. The light ink is **#13151C**.
+
+**Do**
+- Use white paper, hairline grids, flush cells and solid blue.
+- Use purple only for wayfinding.
+- Number with two-digit blue numerals.
+- End content slides in the footer band.
+
+**Do** use dark #13151C showcase panels for anything that is app UI. Glow, blur and shadow belong there and nowhere else.
+
+**Do** use the light lockup tiles (gradient stroke, ink wordmark) on white slides.
+
+**Don't**
+- Put glass, glows or shadows on white areas.
+- Add logos or page numbers to content slides.
+- Add periods to statement words.
+- Use navy #0F1B2D. The ink is **#13151C**.
 
 ---
 
@@ -280,7 +348,7 @@ Cover → Problem (stats) → Status-quo fixes → Statement ("Coaching.") → S
 - Use Plus Jakarta Sans everywhere.
 - Use the unified tokens in §3; reference them by name in code (`--dx-blue-primary`).
 - Keep one idea per slide, one emphasised word per headline.
-- Keep lockup tiles and app UI dark in both themes.
+- Keep app UI dark in both themes; on light slides use the light lockup tiles (gradient stroke) and dark #13151C showcase panels.
 
 **Don't**
 - Swap Primary and Secondary blue. **Primary Blue is #15B6FF** and Secondary Blue is #194EFF; earlier Figma variables had these names reversed.
@@ -322,7 +390,7 @@ Create one COLOR collection with modes **Dark** and **Light**, named `brand/blue
 
 ## 12. Workflow when using this skill
 
-1. Identify the format (deck 16:9, one-pager, A4 leaflet, 9:16 video, social) and the theme (dark default; light for insurer and print). **For light, follow §4 "New theme" templates and grammar, not §6/§5 dark chrome.**
+1. Identify the format (deck 16:9, one-pager, A4 leaflet, 9:16 video, social) and the theme (dark default; light for insurer and print). **For light, follow §4 "New theme" v2 (Figma 3550:44786) templates and grammar, not §6/§5 dark chrome.**
 2. Map the content to the narrative arc (§9) and choose one template per page (§6).
 3. Apply the tokens (§3), type scale (§2) and grid (§5) exactly.
 4. Write headlines as one claim with one emphasised word, and end with a takeaway.
