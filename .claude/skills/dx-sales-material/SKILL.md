@@ -313,10 +313,63 @@ Every deck is assembled from these templates. Pick one per slide and do not inve
 - **Numbered item**: Light numeral in `gradient.brand` + SemiBold title + Regular body at 70%.
 - **Connector**: 2px Primary Blue line at 70% + glowing node dots (drop-shadow glow in Primary Blue).
 - **Page number**: Bold 71, #3F8FF2 at 30%, bottom-left.
-- **Product lockups** (always on a dark tile): INTELLIGENT COACHING, DX COACH, DX LEARN, AI CUSTOMER ROLE PLAY, VIRTUAL JOINT FIELDWORK, AGENCY LEADER AVATAR. Never recolour or redraw them.
+- **Product lockups** (always on a dark tile): INTELLIGENT COACHING, DX COACH, DX LEARN, AI CUSTOMER ROLE PLAY, VIRTUAL JOINT FIELDWORK, AGENCY LEADER AVATAR. Use the official SVGs in `assets/products/` (see §7a). Never recolour or redraw them.
 - **Phone mockup**: dark device, angled or upright, screens always dark UI; floating UI cards may break out of the phone.
 
 ---
+
+## 7a. Brand assets (use these files, never redraw)
+
+Official SVGs ship with this skill in `assets/` (paths are relative to this SKILL.md). **Always place these files instead of typing, tracing or rebuilding a logo or product wordmark.** Scale proportionally and never stretch, recolour, crop, outline, add effects to, or re-typeset them.
+
+### Files
+
+| File | What it is | Native size | Use on |
+|---|---|---|---|
+| `assets/logo/dignifyx-logo-on-light.svg` | Full DIGNIFY**X** wordmark, ink (#13151C) letters + blue gradient X | 412×99 | **White / light** backgrounds |
+| `assets/logo/dignifyx-logo-on-dark.svg` | Full wordmark, white letters + blue gradient X | 412×99 | **Dark** backgrounds (#13151C, #131F2F, #13151C showcase panels, photos with dark overlay) |
+| `assets/logo/dignifyx-x-mark.svg` | The **X mark** alone: solid `gradient.brand` chevron + two ink-outlined diamonds | 1332×1294 | Light backgrounds. Avatar/app icon, favicon, social profile, cover hero art, watermark, divider motif |
+| `assets/products/intelligent-coaching.svg` | INTELLIGENT COACHING lockup | 739×165 | Dark only |
+| `assets/products/dx-coach.svg` | DX COACH lockup | 747×127 | Dark only |
+| `assets/products/dx-learn.svg` | DX LEARN lockup | 712×176 | Dark only |
+| `assets/products/ai-customer-role-play.svg` | AI CUSTOMER ROLE PLAY lockup | 587×201 | Dark only |
+| `assets/products/virtual-joint-fieldwork.svg` | VIRTUAL JOINT FIELDWORK lockup | 598×186 | Dark only |
+| `assets/products/agency-leader-avatar.svg` | AGENCY LEADER AVATAR lockup | 471×233 | Dark only |
+
+### Which asset when
+
+1. **Company logo:** choose by background luminance. On light or white backgrounds use `-on-light`; on dark backgrounds or photos use `-on-dark`. If you're unsure, use the light theme with `-on-light`.
+2. **Logo placement and size (16:9, 1920×1080):**
+   - **Cover and closing:** 412w at (120, 182) on light; 412–458w on the dark cover.
+   - **Dark content slides:** 200w top-right at (1640, 56).
+   - **Light content slides:** no logo (§4 light rules).
+   - **Divider:** 265w bottom-centre (dark theme only).
+   - **Print one-pager:** 120–160w top-left.
+   - **Social square:** 30–40% of the width.
+3. **Clear space:** at least the height of the X's chevron arm (about 0.25 × logo height) on every side. **Minimum width:** 120px on screen, 25mm in print.
+4. **X mark alone:** use it where the full name is already present or the space is square:
+   - Avatars and icons.
+   - The cover's large hero chevron, enlarged and cropped off the edge.
+   - Watermarks at 5–6% opacity.
+   - Divider chevrons.
+
+   Never pair the X mark beside the full logo on the same small surface. On dark backgrounds, the mark's ink diamond outlines must switch to white strokes. That is the only permitted modification.
+5. **Product lockups (the six products):** use the matching SVG whenever a product is named as a hero or tile: feature lists, product-detail sidebars, roadmaps, one-pagers, social. Body text still writes the name in plain type ("DX Coach").
+   - The lockups are drawn for **dark surfaces** (white and pale-cyan glyphs). Always place them on a dark tile or panel: #13151C or #131F2F, radius 12–16, padding ≥ 10% of the tile width.
+   - On light slides, sit that dark tile inside the light layout. Optionally give it the gradient stroke (#7519FF → #FFFFFF → #194EFF, 1–1.4px).
+   - Never put a lockup directly on white; it will disappear.
+   - Product → file: Intelligent Coaching → `intelligent-coaching.svg` · DX Coach → `dx-coach.svg` · DX Learn → `dx-learn.svg` · AI Customer Role Play → `ai-customer-role-play.svg` · Virtual Joint Fieldwork → `virtual-joint-fieldwork.svg` · Agency Leader Avatar → `agency-leader-avatar.svg`.
+6. **Never:**
+   - Rebuild logos in text.
+   - Use a retired lockup or a screenshot of one.
+   - Mix logo colourways.
+   - Put the white logo on light, or the ink logo on dark.
+
+### How to use the files per medium
+- **Figma:** read the SVG text and call `figma.createNodeFromSvg(svg)`, name the node (`logo`, `lockup/dx-coach`), then scale with `rescale()` to keep proportions. Before importing, check the target file for existing instances such as the `logo` component; reuse it if it matches. Angular gradients inside some lockups may simplify on import, so compare with a render, and if they flatten, use an existing in-file lockup instance instead.
+- **HTML / web artifacts:** inline the SVG markup (preferred, keeps it crisp) or reference the file. Set only `width` or `height`; keep the `viewBox`.
+- **PowerPoint / Docs / PDF:** insert the SVG directly. If the tool needs raster, export PNG at ≥ 2× the placed size with a transparent background.
+- **Favicon / app icon:** `dignifyx-x-mark.svg` on a white or #13151C rounded square.
 
 ## 8. Imagery and art direction
 
@@ -392,6 +445,6 @@ Create one COLOR collection with modes **Dark** and **Light**, named `brand/blue
 
 1. Identify the format (deck 16:9, one-pager, A4 leaflet, 9:16 video, social) and the theme (dark default; light for insurer and print). **For light, follow §4 "New theme" v2 (Figma 3550:44786) templates and grammar, not §6/§5 dark chrome.**
 2. Map the content to the narrative arc (§9) and choose one template per page (§6).
-3. Apply the tokens (§3), type scale (§2) and grid (§5) exactly.
+3. Apply the tokens (§3), type scale (§2) and grid (§5) exactly. Place logos, the X mark and product lockups from `assets/` per §7a, choosing the colourway by background.
 4. Write headlines as one claim with one emphasised word, and end with a takeaway.
 5. Self-check against §10 before delivering: font, token names, Primary/Secondary blue, system colours only for status, lockups and UI dark, values wording.
