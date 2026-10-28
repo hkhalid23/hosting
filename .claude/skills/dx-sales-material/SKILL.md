@@ -1,13 +1,13 @@
 ---
 name: dx-sales-material
-description: "DX - Sales material: DignifyX brand system for decks, one-pagers, leaflets, social and video frames. Use whenever creating, redesigning, reviewing or writing copy for any DignifyX / DX marketing or sales material (pitch decks, insurer decks, product overviews, roadmaps, flyers, brochures, testimonials, statement slides) in any medium: Figma, HTML, PowerPoint, PDF or plain copy. Always starts by asking which theme to use (light, dark, or a combination with a user-defined ratio). Covers colours (Gradient 1 / #15B6FF primary accent, #194EFF secondary, purple only for AI-role topics, status colours), typography, corner radii, layout grids, fixed opening / section / ending slides, components (pointer graphic for eyebrows and KPIs, chevron bullets, two-digit 01–09 numbering), tone of voice and official brand assets (logo, logomark, chevron, pointer, on-white / on-black product SVGs used as product headings)."
+description: "DX - Sales material: DignifyX brand system for decks, one-pagers, leaflets, social and video frames. Use whenever creating, redesigning, reviewing or writing copy for any DignifyX / DX marketing or sales material (pitch decks, insurer decks, product overviews, roadmaps, flyers, brochures, testimonials, statement slides) in any medium: Figma, HTML, PowerPoint, PDF or plain copy. Always starts by asking which theme to use (light, dark, or a combination with a user-defined ratio). Covers colours (Gradient 1 / #15B6FF primary accent, #194EFF secondary, purple only for AI-role topics, status colours), typography, corner radii, layout grids, fixed opening / section / ending slides, components (pointer graphic for eyebrows and KPIs, chevron bullets, two-digit 01–09 numbering), default subtle animation on every slide of PowerPoint decks, tone of voice and official brand assets (logo, logomark, chevron, pointer, on-white / on-black product SVGs used as product headings)."
 ---
 
-# DX - Sales Material V4
+# DX - Sales Material V5
 
 The single source of truth for how DignifyX (DX) sales and marketing material looks, reads and is structured. It is distilled from the **DX Sales Material** Figma file (`T1o7OpZLnVU3zlwlZd08aY`), page **Feature Deck** (node `3015:63303`): the **White theme** deck, the six **Dark theme** decks (Reference, Section 1, Section 4, Section 5, Section 6, Feature Deck), the **Additional color** sections and the **Additional graphics** section. See §13 for the node map.
 
-Machine-readable tokens live in `tokens.json` next to this file. Official SVGs live in `assets/logo/`, `assets/products/` and `assets/graphics/` (see §7a).
+Machine-readable tokens live in `tokens.json` next to this file. Official SVGs live in `assets/logo/`, `assets/products/` and `assets/graphics/` (see §7a). The default PowerPoint animation pass lives in `scripts/animate.py` (see §11a).
 
 ---
 
@@ -697,6 +697,7 @@ New graphics taken from the Figma file are added here (§13).
 - Write 01–09.
 - Keep one idea per slide and one emphasised word per headline.
 - Keep app UI dark in both themes.
+- Add the subtle default animation to every slide of every PowerPoint deck (§11a).
 
 **Don't**
 - Swap the blue roles because of the Figma variable names (Figma "Primary" = #194EFF, "Secondary" = #15B6FF).
@@ -705,6 +706,67 @@ New graphics taken from the Figma file are added here (§13).
 - Invent new cover, section or ending layouts.
 - Use thick #194EFF borders on every card. Reserve them for the featured card.
 - Write RESPECT in place of INTEGRITY in the values line.
+
+---
+
+## 11a. Default animation (every PowerPoint deck)
+
+**Every deck made with this skill ships with subtle animation on every slide, by default.** Don't wait to be asked. Leave it out only if the user explicitly asks for a static deck. (PDF and print outputs are static by nature.)
+
+### What "subtle" means here (the DX motion spec)
+
+| Element | Animation | Timing |
+|---|---|---|
+| **Slide transition** | **Fade**, medium speed | On every slide, including the opening, section and ending slides |
+| **Content entrance** | **Fade in**, starting automatically with the slide, so there are no clicks | 500 ms per element |
+| **Stagger** | Content appears in reading-order groups | 180 ms between groups. The whole slide settles within about 1.5 s |
+| **Static (never animated)** | Background image or colour, glows and haze, the content-slide logo, the page number, the confidentiality line | — |
+
+**Group order**, from first to last:
+1. Header: the eyebrow with its pointer, and the headline.
+2. The hero element of the slide: the key KPI, the hero chevron or X, or the title card.
+3. The content blocks: cards, columns, table and chart, one group each, left to right and top to bottom.
+4. The takeaway pill or footer band, always last.
+
+**Fixed slides (§4a):**
+- **Opening:** the logo, then the title, then the meta block, then the X artwork.
+- **Section:** the chevrons, then the title card or title, then the logo.
+- **Ending:** the same order as the section slide.
+
+**Never use:**
+- fly-ins, bounces, spins, zooms or wipes;
+- motion paths or emphasis effects;
+- sounds;
+- click-to-advance builds;
+- anything longer than 700 ms;
+- animation on individual table cells or on every bullet one by one (a list appears as one block).
+
+**AI-topic slides (§3.2)** use the same motion as every other slide.
+
+### How to apply it
+
+1. **Tag the shapes while building the deck.**
+   - Name each animated shape `anim-<group>-<n>`, where `<group>` is the order group above (1, 2, 3 …) and `n` is just a counter.
+   - In **pptxgenjs**, pass `objectName: "anim-3-12"` on `addText` / `addShape` / `addImage` / `addTable`.
+   - In **python-pptx**, set `shape.name = "anim-3-12"`.
+   - Leave background, logo and page-number shapes unnamed, or name them anything else, so they stay static.
+2. **Run the skill's animation pass on the finished file:**
+   ```bash
+   python3 <skill-dir>/scripts/animate.py deck.pptx deck-animated.pptx
+   # options: --step 180 (ms between groups)  --dur 500 (fade ms)
+   ```
+   - The script adds the Fade transition and the staggered auto-playing Fade entrances.
+   - **Auto mode:** a slide with no `anim-` names is still animated. Its shapes are grouped in reading order by their top edge. Full-bleed backgrounds, the top-right logo and the bottom-left page number are skipped.
+   - The script replaces any existing transitions or timing, so running it again is safe.
+3. **Validate before delivering:**
+   - Run your PPTX validator if you have one.
+   - Make a quick render. LibreOffice ignores the animations but must open the file cleanly.
+   - In the hand-off message, tell the user: "Subtle animations: fade transitions plus staggered fade-in of content. View in Slide Show mode."
+
+**Other media:**
+- **Figma Slides:** use the same spec: a Dissolve/Fade transition and content fading in over 500 ms with a 180 ms stagger.
+- **HTML / web decks:** use `opacity` 0 → 1, 500 ms ease-out, with `animation-delay` steps of 180 ms. Respect `prefers-reduced-motion`.
+- **Video frames:** a 12–15 frame cross-dissolve.
 
 ---
 
@@ -753,14 +815,17 @@ New graphics taken from the Figma file are added here (§13).
    - Type (§2), grid and radii (§5).
    - Pointer (§7b), two-digit numbers (§7c) and chevron bullets (§7d).
    - Assets from `assets/` per §7a, in the variant that matches the theme.
+   - Name the shapes `anim-<group>-<n>` while building a PowerPoint deck (§11a).
 5. **If the content needs a graphic, icon or element the skill doesn't ship,** look for it in the Figma file first and add it to the skill (§13).
 6. **Write the copy:** headlines as one claim with one emphasised word; end each content slide with a takeaway.
-7. **Self-check before delivering:**
+7. **For PowerPoint output, run the default animation pass** (`scripts/animate.py`, §11a) on the finished deck, then validate it.
+8. **Self-check before delivering:**
    - Theme as chosen, opening / section / ending slides per §4a.
    - Blue roles; purple only on AI slides; status colours only for status.
    - Radii per §5.2.
    - Pointer instead of the diamond; 01–09 numbers; chevron bullets.
    - Product SVG variant and heading-only rule; app UI dark; values wording.
+   - PowerPoint: every slide has the Fade transition and the staggered fade-ins (§11a).
 
 ### Combination decks
 1. **Turn the ratio into slide counts.** Example: 20 slides at 70/30 → 14 dark + 6 light. Round in favour of the lead theme.
