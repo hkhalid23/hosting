@@ -1,13 +1,13 @@
 ---
 name: dx-sales-material
-description: "DX - Sales material: DignifyX brand system for decks, one-pagers, leaflets, social and video frames. Use whenever creating, redesigning, reviewing or writing copy for any DignifyX / DX marketing or sales material (pitch decks, insurer decks, product overviews, roadmaps, flyers, brochures, testimonials, statement slides) in any medium: Figma, HTML, PowerPoint, PDF or plain copy. Covers colours, typography, layout grids, slide templates, components and tone of voice."
+description: "DX - Sales material: DignifyX brand system for decks, one-pagers, leaflets, social and video frames. Use whenever creating, redesigning, reviewing or writing copy for any DignifyX / DX marketing or sales material (pitch decks, insurer decks, product overviews, roadmaps, flyers, brochures, testimonials, statement slides) in any medium: Figma, HTML, PowerPoint, PDF or plain copy. Covers colours, typography, layout grids, slide templates, components, tone of voice and official brand assets (logo, logomark, chevron, and on-white / on-black product SVGs used as product headings)."
 ---
 
-# DX - Sales material
+# DX - Sales Material V3
 
 The single source of truth for how DignifyX (DX) sales and marketing material looks, reads and is structured. It is distilled from the DX Sales Material Figma file: Feature Deck, Video/print page and the "Proving the ROI of AI-Powered Coaching" deck in dark and light themes.
 
-Machine-readable tokens live in `tokens.json` next to this file.
+Machine-readable tokens live in `tokens.json` next to this file. Official logo and product SVGs live in `assets/logo/` and `assets/products/` (see §7a).
 
 ---
 
@@ -134,12 +134,11 @@ Rules:
 | `light.accent` | **#194EFF** | Emphasis words, numerals, units, row labels, bars, solid header pills, divider bar |
 | `light.wayfinding` | **#7519FF** | ◆ eyebrow + eyebrow label, question-slide accent bar |
 | `light.motif` | #194EFF @10% + #B1B1B1 @20%, layer at 52% | Corner chevron pattern at both ends of the footer band |
-| `light.lockupStroke` | gradient **#7519FF → #FFFFFF → #194EFF**, 1–1.4px | Outline of product lockup tiles |
-| `light.lockupGlow` | #194EFF + #9F19FF ellipses, layer blur 120–164 | Soft glow inside lockup tiles |
+| `light.lockupStroke` | gradient **#7519FF → #FFFFFF → #194EFF**, 1–1.4px | Optional outline when a product SVG sits in its own tile |
 
 Rules:
 - **Blue #194EFF does the work.** Use #15B6FF only inside `gradient.brand` (statement words, cover chevron, divider hero chevron).
-- **Purple is wayfinding**, plus the purple half of the lockup tiles. Never use it for content text.
+- **Purple is wayfinding**, plus the purple built into the product "on white" SVGs. Never use it for content text.
 - **On white areas: no glass, blur or drop shadows.** Depth lives only in the dark showcase panels.
 
 #### Light typography (overrides §2)
@@ -175,7 +174,7 @@ Rules:
   - Panels: radius 16 (comparison panels).
   - Chips and goal chips: radius 8.
   - Solid header pills: radius 12.
-  - Lockup tiles: radius 12–16.
+  - Product-SVG tiles (when used): radius 12–16.
   - Bars: radius 3.
 
 #### Light components
@@ -184,7 +183,7 @@ Rules:
 - **Header cell:** a full-cell column header with a tinted label (SemiBold 14 UPPERCASE #194EFF over Bold 32 ink). The **chosen or top tier is solid #194EFF** with white text (Performer).
 - **Status chip:** small radius-8 chip with Bold 12 UPPERCASE +1.5 text. **Planned or dated** (NOVEMBER, EARLY Q1, PLANNED): #F7FBFD fill, #194EFF text. **In progress:** #F9CF44 @45% fill, ink text.
 - **Goal chip:** stacked numeral + label tile, #F5F9FB fill, 1px ink @10 stroke, radius 8. Laid out three across ("01 Product Knowledge").
-- **Product lockup tile (light):** **transparent or white tile with the gradient stroke (#7519FF → #FFFFFF → #194EFF)**, radius 12–16, soft blue and purple glows inside. The wordmark is in **ink with purple/blue gradient accents** ("DX" ink, icon letters in purple→ink gradients). **This replaces the dark navy tile on white slides.** Lockups are now redrawn per product: INTELLIGENT COACHING, DX COACH, DX LEARN, AI CUSTOMER ROLE PLAY, VIRTUAL JOINT FIELDWORK, AGENCY LEADER AVATAR.
+- **Product heading (light):** when a product name is a heading or sub-heading, place the product's **"on white" SVG** (`assets/products/<product>-on-white.svg`) as that heading, directly on the white or `surface` background. No dark tile is needed. Rules in §7a.
 - **Dark showcase panel:** a **#13151C** block (product slides 19–24, customisation screen row, solution slide).
   - Lit by two **#194EFF ellipses at 40% with ~100 layer blur** behind the phones.
   - Phones carry a drop shadow (#13151C @80, r28).
@@ -231,9 +230,9 @@ Rules:
 13. **Pilot details:**
     - Left: big stat cells (100 / 3+3 / 18) with details.
     - Right: objectives with a **solid blue "40+" tile** and a `surface` scorecard tile.
-14. **Features list:** "LIVE TODAY" vs "IN DEVELOPMENT" (`surface`) halves, light lockup tiles, status chips above the descriptions.
+14. **Features list:** "LIVE TODAY" vs "IN DEVELOPMENT" (`surface`) halves. Each product row is headed by its **"on white" product SVG**, with status chips above the descriptions.
 15. **Product detail:**
-    - A **560px `surface` sidebar**: light lockup tile, For the Agent / For the Leader / For the Insurer separated by hairlines, "Design Note" in blue, status chip at the bottom left.
+    - A **560px `surface` sidebar**: **"on white" product SVG as the sidebar heading**, For the Agent / For the Leader / For the Insurer separated by hairlines, "Design Note" in blue, status chip at the bottom left.
     - A **1360px dark showcase panel** with 2–3 glowing phone groups and in-panel captions.
 16. **Learning science:** 2 × 3 grid, research vs ground truth, with a checkerboard. Footer band: Bold "Sources" label + small citations.
 17. **Scoring:** a 400px label column (Effort `surface`, Effectiveness `featured`) and 3 + 4 tinted cells numbered 01–07. Footer band: "One Score, Three Readings" with the readings in blue.
@@ -252,7 +251,7 @@ Rules:
 
 **Do** use dark #13151C showcase panels for anything that is app UI. Glow, blur and shadow belong there and nowhere else.
 
-**Do** use the light lockup tiles (gradient stroke, ink wordmark) on white slides.
+**Do** use the **"on white" product SVGs** as product headings on white slides.
 
 **Don't**
 - Put glass, glows or shadows on white areas.
@@ -292,8 +291,8 @@ Every deck is assembled from these templates. Pick one per slide and do not inve
 9. **Framework matrix**: row labels at left (Hard skills / Personalisation / Soft skills), column header pills, framework tiles (code Bold 36 + subtitle), bullet lists with blue dots; a dashed outline marks roadmap items with a legend.
 10. **Team**: two lists of person rows (avatar 68, name + role chip, credentials) flanking a featured statement card.
 11. **Swimlane / journey**: lanes for Agent / Leader / DignifyX (Leader lane highlighted as featured), milestone dots with glow, session pills, "Leaders' Choice" badges, plus a stakeholder side panel with SOLUTIONS tags and chips.
-12. **Product detail**: left sidebar (lockup tile, For the Agent / For the Leader / For the Insurer / Design Note in Primary Blue, status chip at bottom) + showcase panel (2–3 phones over a soft glow, numbered captions below each).
-13. **Feature list**: Live Today vs In Development panels; lockup tile + one-sentence benefit; status chips (NOVEMBER, EARLY Q1).
+12. **Product detail**: left sidebar ("on black" product SVG as heading, For the Agent / For the Leader / For the Insurer / Design Note in Primary Blue, status chip at bottom) + showcase panel (2–3 phones over a soft glow, numbered captions below each).
+13. **Feature list**: Live Today vs In Development panels; "on black" product SVG as each row heading + one-sentence benefit; status chips (NOVEMBER, EARLY Q1).
 14. **FAQ**: 3 numbered column headers (featured) with status chips, Q&A cards ("Q:" in gradient, "A:" Medium Italic), and a process-flow pill row at the bottom.
 
 **Takeaway bar** (end of most content slides): full-width pill, 4% fill + 22% stroke (dark) / white card (light), bold gradient label + one Medium 24 sentence.
@@ -313,63 +312,90 @@ Every deck is assembled from these templates. Pick one per slide and do not inve
 - **Numbered item**: Light numeral in `gradient.brand` + SemiBold title + Regular body at 70%.
 - **Connector**: 2px Primary Blue line at 70% + glowing node dots (drop-shadow glow in Primary Blue).
 - **Page number**: Bold 71, #3F8FF2 at 30%, bottom-left.
-- **Product lockups** (always on a dark tile): INTELLIGENT COACHING, DX COACH, DX LEARN, AI CUSTOMER ROLE PLAY, VIRTUAL JOINT FIELDWORK, AGENCY LEADER AVATAR. Use the official SVGs in `assets/products/` (see §7a). Never recolour or redraw them.
+- **Product headings:** INTELLIGENT COACHING, DX COACH, DX LEARN, AI CUSTOMER ROLE PLAY, VIRTUAL JOINT FIELDWORK, AGENCY LEADER AVATAR. Use the official product SVGs from `assets/products/`, "on black" in dark artwork and "on white" in light artwork, **only when the product name is a heading or sub-heading** (§7a). Never recolour or redraw them.
 - **Phone mockup**: dark device, angled or upright, screens always dark UI; floating UI cards may break out of the phone.
 
 ---
 
 ## 7a. Brand assets (use these files, never redraw)
 
-Official SVGs ship with this skill in `assets/` (paths are relative to this SKILL.md). **Always place these files instead of typing, tracing or rebuilding a logo or product wordmark.** Scale proportionally and never stretch, recolour, crop, outline, add effects to, or re-typeset them.
+Official SVGs ship with this skill in **two folders** under `assets/`. Paths are relative to this SKILL.md.
 
-### Files
+**Always place these files instead of typing, tracing or rebuilding a logo or product wordmark.** Scale them proportionally only. Never stretch, recolour, crop, outline, add effects to, or re-typeset them.
+
+### Folder 1: `assets/logo/` (company identity)
 
 | File | What it is | Native size | Use on |
 |---|---|---|---|
-| `assets/logo/dignifyx-logo-on-light.svg` | Full DIGNIFY**X** wordmark, ink (#13151C) letters + blue gradient X | 412×99 | **White / light** backgrounds |
-| `assets/logo/dignifyx-logo-on-dark.svg` | Full wordmark, white letters + blue gradient X | 412×99 | **Dark** backgrounds (#13151C, #131F2F, #13151C showcase panels, photos with dark overlay) |
-| `assets/logo/dignifyx-x-mark.svg` | The **X mark** alone: solid `gradient.brand` chevron + two ink-outlined diamonds | 1332×1294 | Light backgrounds. Avatar/app icon, favicon, social profile, cover hero art, watermark, divider motif |
-| `assets/products/intelligent-coaching.svg` | INTELLIGENT COACHING lockup | 739×165 | Dark only |
-| `assets/products/dx-coach.svg` | DX COACH lockup | 747×127 | Dark only |
-| `assets/products/dx-learn.svg` | DX LEARN lockup | 712×176 | Dark only |
-| `assets/products/ai-customer-role-play.svg` | AI CUSTOMER ROLE PLAY lockup | 587×201 | Dark only |
-| `assets/products/virtual-joint-fieldwork.svg` | VIRTUAL JOINT FIELDWORK lockup | 598×186 | Dark only |
-| `assets/products/agency-leader-avatar.svg` | AGENCY LEADER AVATAR lockup | 471×233 | Dark only |
+| `assets/logo/dignifyx-logo-black.svg` | Full DIGNIFY**X** logo: ink letters + blue gradient X | 412×99 | **Light** backgrounds (white, #F5F9FB, light photos) |
+| `assets/logo/dignifyx-logo-white.svg` | Full DIGNIFY**X** logo: white letters + blue gradient X | 412×99 | **Dark** backgrounds (#13151C, #131F2F, dark showcase panels, dark photos) |
+| `assets/logo/dignifyx-logomark.svg` | The **X logomark**: blue gradient chevron + two outlined diamonds | 1332×1294 | Both themes. App icon, avatar, favicon, social profile, cover hero art, watermark |
+| `assets/logo/dignifyx-chevron.svg` | The **chevron** alone, solid blue gradient | 812×1294 | Both themes. Graphic motif for cover hero, divider sweeps, bullets / pointers, background accents, page-corner details |
 
-### Which asset when
+**Logo rules:**
+1. **Pick the colourway by background:** light → `dignifyx-logo-black.svg`; dark → `dignifyx-logo-white.svg`. Never put the black logo on dark or the white logo on light.
+2. **Placement and size (16:9, 1920×1080):**
+   - Cover and closing: 412w at (120, 182).
+   - Dark content slides: 200w top-right at (1640, 56).
+   - Light content slides: no logo (§4).
+   - Print one-pager: 120–160w top-left.
+   - Social square: 30–40% of the width.
+3. **Clear space:** at least 0.25 × the logo's height on every side. **Minimum width:** 120px on screen, 25mm in print.
+4. **Logomark vs chevron:**
+   - Use the **logomark** when the brand has to be recognised without the name (icon, avatar, favicon, large cover art cropped off the edge, watermark at 5–6% opacity).
+   - Use the **chevron** as a pure graphic device (divider sweeps, arrows, accents).
+   - Never place either right next to the full logo on the same small surface.
 
-1. **Company logo:** choose by background luminance. On light or white backgrounds use `-on-light`; on dark backgrounds or photos use `-on-dark`. If you're unsure, use the light theme with `-on-light`.
-2. **Logo placement and size (16:9, 1920×1080):**
-   - **Cover and closing:** 412w at (120, 182) on light; 412–458w on the dark cover.
-   - **Dark content slides:** 200w top-right at (1640, 56).
-   - **Light content slides:** no logo (§4 light rules).
-   - **Divider:** 265w bottom-centre (dark theme only).
-   - **Print one-pager:** 120–160w top-left.
-   - **Social square:** 30–40% of the width.
-3. **Clear space:** at least the height of the X's chevron arm (about 0.25 × logo height) on every side. **Minimum width:** 120px on screen, 25mm in print.
-4. **X mark alone:** use it where the full name is already present or the space is square:
-   - Avatars and icons.
-   - The cover's large hero chevron, enlarged and cropped off the edge.
-   - Watermarks at 5–6% opacity.
-   - Divider chevrons.
+### Folder 2: `assets/products/` (product logomarks)
 
-   Never pair the X mark beside the full logo on the same small surface. On dark backgrounds, the mark's ink diamond outlines must switch to white strokes. That is the only permitted modification.
-5. **Product lockups (the six products):** use the matching SVG whenever a product is named as a hero or tile: feature lists, product-detail sidebars, roadmaps, one-pagers, social. Body text still writes the name in plain type ("DX Coach").
-   - The lockups are drawn for **dark surfaces** (white and pale-cyan glyphs). Always place them on a dark tile or panel: #13151C or #131F2F, radius 12–16, padding ≥ 10% of the tile width.
-   - On light slides, sit that dark tile inside the light layout. Optionally give it the gradient stroke (#7519FF → #FFFFFF → #194EFF, 1–1.4px).
-   - Never put a lockup directly on white; it will disappear.
-   - Product → file: Intelligent Coaching → `intelligent-coaching.svg` · DX Coach → `dx-coach.svg` · DX Learn → `dx-learn.svg` · AI Customer Role Play → `ai-customer-role-play.svg` · Virtual Joint Fieldwork → `virtual-joint-fieldwork.svg` · Agency Leader Avatar → `agency-leader-avatar.svg`.
-6. **Never:**
-   - Rebuild logos in text.
-   - Use a retired lockup or a screenshot of one.
-   - Mix logo colourways.
-   - Put the white logo on light, or the ink logo on dark.
+Every product has two variants. **Choose the variant by theme:**
+
+| Product (as written in content) | Light theme: **on white** | Dark theme: **on black** |
+|---|---|---|
+| Intelligent Coaching | `intelligent-coaching-on-white.svg` (738×164) | `intelligent-coaching-on-black.svg` (739×165) |
+| DX Coach | `dx-coach-on-white.svg` (706×120) | `dx-coach-on-black.svg` (747×127) |
+| DX Learn | `dx-learn-on-white.svg` (667×164) | `dx-learn-on-black.svg` (712×176) |
+| AI Customer Role Play | `ai-customer-role-play-on-white.svg` (547×187) | `ai-customer-role-play-on-black.svg` (587×201) |
+| Virtual Joint Fieldwork | `virtual-joint-fieldwork-on-white.svg` (580×181) | `virtual-joint-fieldwork-on-black.svg` (598×186) |
+| Agency Leader Avatar | `agency-leader-avatar-on-white.svg` (471×261) | `agency-leader-avatar-on-black.svg` (471×233) |
+
+- **"On white"** files have ink and purple-to-blue lettering. Use them on white, #F5F9FB, light tints and any light-themed artwork.
+- **"On black"** files have white and cyan lettering. Use them on #13151C, #131F2F, dark showcase panels and any dark-themed artwork.
+- Never place an "on white" file on a dark background or an "on black" file on a light one; each disappears on the wrong background.
+
+### When to use a product SVG (strict rule)
+
+**Use a product SVG only when the product's name is used as a heading or sub-heading** of a section in the content: a slide title area, a card or column header, a sidebar title, a feature-row title, a section header in a flyer, brochure, one-pager or social post. **The SVG then *is* that heading.** Place it where the heading text would go, and don't also typeset the same name beside it.
+
+- ✅ **Product as heading:** "DX Coach" heading a feature card → `dx-coach-on-white.svg` (light) or `dx-coach-on-black.svg` (dark) in place of the heading text.
+- ✅ **Product-detail sidebar headed "Intelligent Coaching"** → the Intelligent Coaching SVG as the sidebar heading.
+- ✅ **Features list rows titled with product names** → one product SVG per row heading.
+- ❌ **Name inside a sentence or bullet** ("Agents ask the DX Coach any time…") → plain text, no SVG.
+- ❌ **Name in tables, captions, footnotes, chips, process flows, or a list of several products inside body copy** → plain text.
+- ❌ **Decoration, background or watermark** → never. Only the DignifyX logomark or chevron may be used decoratively.
+
+**Sizing a product heading:**
+- Match the visual weight of the heading it replaces: the cap height of the SVG ≈ the heading's cap height.
+- Typical widths at 1920×1080: 300–420px for card or sidebar headings, 420–560px for a slide-level or section heading, 180–260px for compact feature rows.
+- Align it to the same left edge as the body text below, with the normal heading-to-body gap (16–24px).
+- Optional on light: sit the SVG in its own white tile with the gradient stroke (`light.lockupStroke`, radius 12–16). It is not required, because the "on white" SVG works directly on the background.
 
 ### How to use the files per medium
-- **Figma:** read the SVG text and call `figma.createNodeFromSvg(svg)`, name the node (`logo`, `lockup/dx-coach`), then scale with `rescale()` to keep proportions. Before importing, check the target file for existing instances such as the `logo` component; reuse it if it matches. Angular gradients inside some lockups may simplify on import, so compare with a render, and if they flatten, use an existing in-file lockup instance instead.
-- **HTML / web artifacts:** inline the SVG markup (preferred, keeps it crisp) or reference the file. Set only `width` or `height`; keep the `viewBox`.
-- **PowerPoint / Docs / PDF:** insert the SVG directly. If the tool needs raster, export PNG at ≥ 2× the placed size with a transparent background.
-- **Favicon / app icon:** `dignifyx-x-mark.svg` on a white or #13151C rounded square.
+- **Figma:**
+  - Read the SVG text and call `figma.createNodeFromSvg(svg)`.
+  - Name the node (`logo`, `logomark`, `chevron`, `product/dx-coach-on-white`).
+  - Scale with `rescale()` to keep proportions.
+  - Reuse an existing in-file `logo` component if it matches.
+  - Angular gradients in some product files can simplify on import, so compare with a render.
+- **HTML / web:** inline the SVG markup (preferred) or reference the file. Set only `width` or `height`, and keep the `viewBox`.
+- **PowerPoint / Docs / PDF:** insert the SVG, or a transparent PNG rendered at ≥ 2× the placed size, cropped to the artwork's edges.
+- **Favicon / app icon:** `dignifyx-logomark.svg` on a white or #13151C rounded square.
+
+### Never
+- Rebuild the logo or a product name as live text.
+- Use retired lockups, screenshots of logos, or the wrong theme variant.
+- Use product SVGs for anything other than headings or sub-headings.
+- Mix the black and white company logos on one artwork.
 
 ## 8. Imagery and art direction
 
@@ -401,7 +427,7 @@ Cover → Problem (stats) → Status-quo fixes → Statement ("Coaching.") → S
 - Use Plus Jakarta Sans everywhere.
 - Use the unified tokens in §3; reference them by name in code (`--dx-blue-primary`).
 - Keep one idea per slide, one emphasised word per headline.
-- Keep app UI dark in both themes; on light slides use the light lockup tiles (gradient stroke) and dark #13151C showcase panels.
+- Keep app UI dark in both themes (dark #13151C showcase panels on light slides). Pick product SVGs by theme: "on white" for light, "on black" for dark.
 
 **Don't**
 - Swap Primary and Secondary blue. **Primary Blue is #15B6FF** and Secondary Blue is #194EFF; earlier Figma variables had these names reversed.
@@ -445,6 +471,6 @@ Create one COLOR collection with modes **Dark** and **Light**, named `brand/blue
 
 1. Identify the format (deck 16:9, one-pager, A4 leaflet, 9:16 video, social) and the theme (dark default; light for insurer and print). **For light, follow §4 "New theme" v2 (Figma 3550:44786) templates and grammar, not §6/§5 dark chrome.**
 2. Map the content to the narrative arc (§9) and choose one template per page (§6).
-3. Apply the tokens (§3), type scale (§2) and grid (§5) exactly. Place logos, the X mark and product lockups from `assets/` per §7a, choosing the colourway by background.
+3. Apply the tokens (§3), type scale (§2) and grid (§5) exactly. Place the logo, logomark and chevron from `assets/logo/` per §7a, choosing the colourway by background. Use a product SVG from `assets/products/` only where that product's name is a heading or sub-heading, in the variant that matches the theme ("on white" for light, "on black" for dark).
 4. Write headlines as one claim with one emphasised word, and end with a takeaway.
-5. Self-check against §10 before delivering: font, token names, Primary/Secondary blue, system colours only for status, lockups and UI dark, values wording.
+5. Self-check against §10 before delivering: font, token names, Primary/Secondary blue, system colours only for status, correct product-SVG variant (on white / on black) and only on product headings, app UI dark, values wording.
