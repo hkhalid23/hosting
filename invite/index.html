@@ -186,15 +186,20 @@ const easeOut = x => 1 - Math.pow(1 - clamp(x), 3);
 const easeInOut = x => { x = clamp(x); return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
 const lerp = (a, b, k) => a + (b - a) * k;
 
-const DURATION = 52;
-const SCENES = [
-  // id, in, out (null = holds to the end)
-  ['s1', 2.6, 13.0],
-  ['s2', 13.8, 22.0],
-  ['s3', 22.8, 32.5],
-  ['s4', 33.3, 41.5],
-  ['s5', 42.3, null],
-];
+// How long each slide stays before fading out (the last one holds to the end).
+// Pick slides with ?scenes=s1,s3,s5 (s1 intro, s2 Mehndi, s3 Barat, s4 Walima, s5 ending).
+const SCENE_LEN = { s1: 10.4, s2: 8.2, s3: 9.7, s4: 8.2, s5: 9.7 };
+const GAP = 0.8;
+const PICK = (new URLSearchParams(location.search).get('scenes') || 's1,s2,s3,s4,s5').split(',');
+const SCENES = [];
+let cursor = 2.6;
+PICK.forEach((sid, i) => {
+  const last = i === PICK.length - 1;
+  SCENES.push([sid, cursor, last ? null : cursor + SCENE_LEN[sid]]);
+  cursor += SCENE_LEN[sid] + GAP;
+});
+const DURATION = Math.round((cursor - GAP) * 10) / 10;
+for (const sid of Object.keys(SCENE_LEN)) if (!PICK.includes(sid)) document.getElementById(sid).style.display = 'none';
 
 // ---------- background: ivory paper + watercolour washes ----------
 function drawBackground() {

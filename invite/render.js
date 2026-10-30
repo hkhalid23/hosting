@@ -1,24 +1,28 @@
 // Renders index.html frame-by-frame and pipes PNGs into ffmpeg.
 // Usage:
 //   node render.js stills 3,8,14,20,27,35   -> stills/*.png for quick review
-//   node render.js video out.mp4 [audio.wav]
+//   node render.js video out.mp4 [audio.wav] [s1,s3,s4,s5]
+//   node render.js duration x - s1,s3,s5          -> prints the video length
 const { chromium } = require('/opt/node-tools/node_modules/playwright');
 const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
 const FPS = 30;
-const [mode = 'video', arg = 'invitation.mp4', audio] = process.argv.slice(2);
+const [mode = 'video', arg = 'invitation.mp4', audioArg, scenes] = process.argv.slice(2);
+const audio = audioArg && audioArg !== '-' ? audioArg : null;
 
 (async () => {
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--allow-file-access-from-files'] });
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
-  await page.goto('file://' + path.join(__dirname, 'index.html') + '?render');
+  await page.goto('file://' + path.join(__dirname, 'index.html') + '?render' + (scenes ? '&scenes=' + scenes : ''));
   await page.evaluate(() => window.ready);
   const duration = await page.evaluate(() => window.DURATION);
   const stage = await page.$('#stage');
 
-  if (mode === 'stills') {
+  if (mode === 'duration') {
+    console.log(duration);
+  } else if (mode === 'stills') {
     fs.mkdirSync(path.join(__dirname, 'stills'), { recursive: true });
     for (const t of arg.split(',').map(Number)) {
       await page.evaluate(t => window.render(t), t);
