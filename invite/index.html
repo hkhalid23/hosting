@@ -74,6 +74,9 @@
   .sched .lbl { font-family: 'Cinzel', serif; font-size: 19px; letter-spacing: 0.16em; color: var(--gold); text-transform: uppercase; }
   .sched .tm { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 38px; color: var(--rose); font-variant-numeric: lining-nums; }
   .contact { display: flex !important; justify-content: center; align-items: center; gap: 14px; font-family: 'Cinzel', serif; font-size: 30px; letter-spacing: 0.1em; color: var(--ink); }
+  #wreath { left: 220px !important; top: 1135px; width: 640px !important; height: 640px; }
+  #wreath .mono { position: absolute; left: 0; top: 0; width: 640px; line-height: 640px; text-align: center; font-family: 'Great Vibes', cursive; font-size: 100px; color: var(--rose); }
+  #wreath .mono span { color: var(--gold); font-size: .55em; padding: 0 .1em; }
   #couple { left: 330px !important; top: 1085px; width: 420px !important; height: 720px; transform-origin: 50% 100%; }
   .wipe { -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 45%, transparent 55%, transparent 100%); -webkit-mask-size: 300% 100%; }
   .ch { display: inline-block; white-space: pre; }
@@ -100,6 +103,7 @@
     <div class="script names" style="top:905px" data-a="wipe">Mehtab <span class="amp">&amp;</span> Hamza</div>
     <div class="divider" style="top:1080px" data-a="line" data-orn="1"></div>
     <div id="couple" data-a="couple"></div>
+    <div id="wreath" data-a="wreath"></div>
   </div>
 
   <!-- Scene 2: Mehndi -->
@@ -198,6 +202,8 @@ PICK.forEach((sid, i) => {
   SCENES.push([sid, cursor, last ? null : cursor + SCENE_LEN[sid]]);
   cursor += SCENE_LEN[sid] + GAP;
 });
+// Intro decoration: 'couple' (illustrated couple) or 'wreath' (circular floral wreath); ?deco=wreath
+const DECO = new URLSearchParams(location.search).get('deco') || 'couple';
 const DURATION = Math.round((cursor - GAP) * 10) / 10;
 for (const sid of Object.keys(SCENE_LEN)) if (!PICK.includes(sid)) document.getElementById(sid).style.display = 'none';
 
@@ -398,6 +404,47 @@ function loadCluster(c) {
   });
 }
 
+// ---------- circular floral wreath (alternative intro decoration) ----------
+function wreathBody(r) {
+  const cx = 320, cy = 320, R = 212;
+  const pals = ['blush', 'rose', 'peach', 'cream'], kinds = ['peony', 'rose', 'blossom'];
+  let leaves = '', blooms = '';
+  // leaves follow the ring, a little uneven so it feels hand-arranged
+  for (let i = 0; i < 18; i++) {
+    const th = i / 18 * Math.PI * 2 + (r() - .5) * .25, rr = R + (r() - .5) * 26;
+    const dir = r() < .5 ? 180 : 0;
+    leaves += leafSprig(cx + Math.cos(th) * rr, cy + Math.sin(th) * rr, 100 + r() * 60, th * 180 / Math.PI + dir + (r() - .5) * 20, r, i % 3);
+  }
+  // clusters of flowers at irregular points around the ring, larger ones bottom-left and top-right
+  const spots = [[205, 80], [240, 52], [268, 34], [300, 46], [338, 30], [20, 78], [52, 50], [84, 34], [118, 40], [152, 30], [178, 36]];
+  spots.forEach(([deg, size], i) => {
+    const th = (deg + (r() - .5) * 10) * Math.PI / 180, rr = R + (r() - .5) * 22;
+    blooms += flower(cx + Math.cos(th) * rr, cy + Math.sin(th) * rr, size, pals[(i + Math.floor(r() * 4)) % 4], r, size > 45 ? (r() < .6 ? 'peony' : 'rose') : kinds[Math.floor(r() * 3)]);
+  });
+  let dotsS = '';
+  for (let i = 0; i < 34; i++) { const th = r() * Math.PI * 2, rr = R + (r() - .5) * 80; dotsS += `<circle cx="${cx + Math.cos(th) * rr}" cy="${cy + Math.sin(th) * rr}" r="${2 + r() * 3.5}" fill="#d9a93f" opacity="${.5 + r() * .4}"/>`; }
+  return leaves + blooms + dotsS;
+}
+function loadWreath() {
+  const el = document.getElementById('wreath');
+  return new Promise(res => {
+    const img = new Image();
+    img.onload = () => {
+      const cv = document.createElement('canvas'); cv.width = 640; cv.height = 640;
+      const g = cv.getContext('2d');
+      g.strokeStyle = 'rgba(180,138,60,.7)'; g.lineWidth = 2;
+      g.beginPath(); g.arc(320, 320, 165, 0, Math.PI * 2); g.stroke();
+      g.strokeStyle = 'rgba(180,138,60,.35)'; g.lineWidth = 1.2;
+      g.beginPath(); g.arc(320, 320, 156, 0, Math.PI * 2); g.stroke();
+      g.drawImage(img, 0, 0);
+      el.appendChild(cv);
+      el.insertAdjacentHTML('beforeend', '<div class="mono">M<span>&amp;</span>H</div>');
+      res();
+    };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgWrap(640, 640, wreathBody(rng(2026))));
+  });
+}
+
 // ---------- ornaments ----------
 function ornament(full) {
   const w = full ? 520 : 360;
@@ -417,7 +464,7 @@ function setupScenes() {
   for (const [sid, tin] of SCENES) {
     const sc = document.getElementById(sid);
     let k = 0;
-    for (const el of sc.children) {
+    for (const el of [...sc.children]) {
       const kind = el.dataset.a; if (!kind) continue;
       if (kind === 'line') el.innerHTML = ornament(el.dataset.orn === '1');
       if (kind === 'letters') {
@@ -425,7 +472,10 @@ function setupScenes() {
         for (const ch of txt) { const s = document.createElement('span'); s.className = 'ch'; s.textContent = ch; el.appendChild(s); }
       }
       if (kind === 'wipe') el.classList.add('wipe');
-      if (kind === 'couple') el.innerHTML = coupleSVG();
+      if (kind === 'couple' || kind === 'wreath') {
+        if (kind !== DECO) { el.remove(); continue; }
+        if (kind === 'couple') el.innerHTML = coupleSVG();
+      }
       const step = { s1: 0.6, s2: 0.32, s3: 0.3, s4: 0.32, s5: 0.45 }[sid];
       items.push({ el, sid, kind, start: tin + k * step, chars: el.querySelectorAll('.ch') });
       k++;
@@ -515,6 +565,14 @@ function render(t) {
       const k = easeOut(lt / 1.1);
       el.style.opacity = clamp(k * 1.5) * (1 - o);
       el.style.transform = `${outT} scaleX(${lerp(.2, 1, k)})`; el.style.filter = outF;
+    } else if (it.kind === 'wreath') {
+      // the wreath blooms in a clockwise sweep while fading 0 -> 100%, then turns very slowly
+      const k = easeInOut((t - 5.6) / 3.8);
+      const sweep = lerp(-40, 400, k);
+      el.style.webkitMaskImage = k >= 1 ? 'none' : `conic-gradient(from -90deg, #000 ${sweep}deg, transparent ${sweep + 40}deg)`;
+      el.style.opacity = k * (1 - o);
+      el.style.transform = `translateY(${-20 * o}px) scale(${lerp(.86, 1, k) * (1 + Math.sin(t * 1.1) * .006)}) rotate(${(1 - k) * -30 + Math.sin(t * .35) * 2}deg)`;
+      el.style.filter = (k < 1 || o > 0) ? `blur(${(1 - k) * 3 + o * 6}px)` : '';
     } else if (it.kind === 'couple') {
       // the couple glides in from outside the frame, fading 0 -> 100%, and settles at the centre
       const k = easeInOut((t - 6.0) / 4.2);
@@ -541,6 +599,7 @@ window.ready = (async () => {
   await document.fonts.load('600 40px "Cormorant Garamond"');
   drawBackground(); buildArch(); buildStrands(); setupScenes();
   for (const c of CLUSTERS) await loadCluster(c);
+  if (DECO === 'wreath') await loadWreath();
   render(0);
   return true;
 })();
