@@ -69,7 +69,8 @@ for b, name in enumerate(prog):
 ir_len = int(SR * 2.2)
 ir = rng.standard_normal(ir_len) * np.exp(-np.arange(ir_len) / SR * 3.0)
 ir /= np.abs(ir).sum() / 6
-wet = np.convolve(out, ir)[:len(out)]
+n_fft = 1 << int(np.ceil(np.log2(len(out) + ir_len)))
+wet = np.fft.irfft(np.fft.rfft(out, n_fft) * np.fft.rfft(ir, n_fft), n_fft)[:len(out)]  # fast convolution
 mix = out * .8 + wet * .35
 mix = mix[:int(SR * DUR)]
 t = np.arange(len(mix)) / SR
