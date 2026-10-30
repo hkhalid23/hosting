@@ -37,7 +37,8 @@ def add(sig, at):
 
 # chords (MIDI roots in D major): D, Bm, G, A
 CH = {'D': [50, 54, 57], 'Bm': [47, 50, 54], 'G': [43, 47, 50], 'A': [45, 49, 52]}
-prog = ['D', 'Bm', 'G', 'A', 'D', 'Bm', 'G', 'A', 'G', 'D', 'D']
+n_bars = int(np.ceil((DUR - 0.4) / BAR))
+prog = (['D', 'Bm', 'G', 'A'] * 8)[:n_bars - 1] + ['D']
 # melody per bar: (beat offset, midi)
 MEL = [
     [(0, 78), (1, 76), (2, 74), (3, 76)],
@@ -48,10 +49,8 @@ MEL = [
     [(0, 83), (1.5, 81), (3, 78)],
     [(0, 79), (1, 81), (2, 79), (3, 76)],
     [(0, 78), (2, 76)],
-    [(0, 74), (1, 76), (2, 79)],
-    [(0, 78), (2, 81)],
-    [(0, 74)],
 ]
+MEL = [MEL[b % 8] for b in range(n_bars - 1)] + [[(0, 74)]]
 for b, name in enumerate(prog):
     t0 = 0.4 + b * BAR
     if t0 > DUR: break
