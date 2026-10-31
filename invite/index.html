@@ -75,8 +75,6 @@
   .sched .tm { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 38px; color: var(--rose); font-variant-numeric: lining-nums; }
   .contact { display: flex !important; justify-content: center; align-items: center; gap: 14px; font-family: 'Cinzel', serif; font-size: 30px; letter-spacing: 0.1em; color: var(--ink); }
   #wreath { left: 220px !important; top: 1135px; width: 640px !important; height: 640px; }
-  #wreath .mono { position: absolute; left: 0; top: 0; width: 640px; line-height: 640px; text-align: center; font-family: 'Great Vibes', cursive; font-size: 100px; color: var(--rose); }
-  #wreath .mono span { color: var(--gold); font-size: .55em; padding: 0 .1em; }
   #couple { left: 330px !important; top: 1085px; width: 420px !important; height: 720px; transform-origin: 50% 100%; }
   .wipe { -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 45%, transparent 55%, transparent 100%); -webkit-mask-size: 300% 100%; }
   .ch { display: inline-block; white-space: pre; }
@@ -157,7 +155,7 @@
     <div class="time" style="margin-top:20px" data-a="fade">1:00 PM &nbsp;–&nbsp; 3:00 PM</div>
     <div class="divider" style="margin-top:24px" data-a="line" data-orn="1"></div>
     <div class="caps label" style="margin-top:18px" data-a="letters">Venue</div>
-    <div class="caps venue" style="margin-top:8px" data-a="wipe">Awan-e-Akbar</div>
+    <div class="caps venue" style="margin-top:8px" data-a="wipe">Aiwan-e-Akbari</div>
     <div class="caps ink" style="font-size:28px;letter-spacing:0.25em;margin-top:6px" data-a="letters">Hall No. 03</div>
     <div class="serif addr" style="margin-top:6px" data-a="fade">Main Ferozepur Road,</div>
     <div class="serif addr it" data-a="fade">opposite Atari Saroba Station</div>
@@ -423,7 +421,52 @@ function wreathBody(r) {
   });
   let dotsS = '';
   for (let i = 0; i < 34; i++) { const th = r() * Math.PI * 2, rr = R + (r() - .5) * 80; dotsS += `<circle cx="${cx + Math.cos(th) * rr}" cy="${cy + Math.sin(th) * rr}" r="${2 + r() * 3.5}" fill="#d9a93f" opacity="${.5 + r() * .4}"/>`; }
-  return leaves + blooms + dotsS;
+  return leaves + blooms + dotsS + thistlePeony(r);
+}
+// Centre-piece: a thistle and a peony on short stems that twine around each other.
+function thistlePeony(r) {
+  const stemC = '#6f8f6a', stemW = 5;
+  const stem = d => `<path d="${d}" fill="none" stroke="${stemC}" stroke-width="${stemW}" stroke-linecap="round"/>`;
+  // stems: both rise from one point, cross twice on the way up
+  const peonyStem = 'M318,446 C350,420 352,392 322,372 C296,356 288,338 290,322';
+  const thistleStem = 'M318,446 C290,422 290,396 322,374 C346,358 360,334 366,306';
+  // a short top stretch of the thistle stem, redrawn over the peony stem so they read as woven
+  const thistleOver = 'M308,383 C314,378 318,376 322,374 C330,368 336,364 340,358';
+  let s = `<defs>
+    <linearGradient id="thBase" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a9c49a"/><stop offset="1" stop-color="#5f7f5a"/></linearGradient>
+    <clipPath id="thClip"><ellipse cx="368" cy="290" rx="24" ry="27"/></clipPath>
+  </defs>`;
+  // leaves on the stems: a soft peony leaf and a spiky thistle leaf
+  s += `<path d="M330,412 C352,404 372,410 384,424 C364,428 346,424 330,412 Z" fill="#8fae8b" opacity=".9"/>
+        <path d="M330,412 C352,412 368,418 384,424" stroke="#6f8f6a" stroke-width="1.2" fill="none"/>`;
+  s += `<path d="M306,404 L290,396 L292,388 L276,384 L280,376 L262,374 L270,366 L256,360
+          C272,356 288,364 298,374 C304,384 306,394 306,404 Z" fill="#7f9e7d"/>`;
+  s += stem(thistleStem) + stem(peonyStem) + stem(thistleOver);
+  // thistle: scaled green bulb with spines, a collar of bracts, and a lavender tuft
+  let tuft = '';
+  for (let i = 0; i < 46; i++) {
+    const a = (-140 + i * (100 / 45) + (r() - .5) * 4) * Math.PI / 180;
+    const len = 48 + r() * 18 - Math.abs(i - 22.5) * .5, x0 = 368 + Math.cos(a) * 8, y0 = 268 + Math.sin(a) * 4;
+    const col = ['#8e5fae', '#a97bc6', '#c6a3dd', '#7a4b99'][i % 4];
+    tuft += `<path d="M${x0},${y0} Q${x0 + Math.cos(a) * len * .5 + (r() - .5) * 6},${y0 + Math.sin(a) * len * .5} ${368 + Math.cos(a) * len},${268 + Math.sin(a) * len * .95}"
+      stroke="${col}" stroke-width="${2.4 + r() * 1.4}" fill="none" stroke-linecap="round" opacity=".92"/>`;
+  }
+  let spines = '';
+  for (let i = 0; i < 14; i++) {
+    const a = (i / 14) * Math.PI * 2, x = 368 + Math.cos(a) * 24, y = 292 + Math.sin(a) * 27;
+    spines += `<path d="M${x},${y} l${Math.cos(a) * 9},${Math.sin(a) * 9}" stroke="#5f7f5a" stroke-width="1.6" stroke-linecap="round"/>`;
+  }
+  let scales = '';
+  for (let k = -3; k <= 3; k++) scales += `<path d="M${344 + k * 14},262 L${392 + k * 14},322 M${392 - k * 14},262 L${344 - k * 14},322" stroke="#e8f0dc" stroke-width="1.3" opacity=".75"/>`;
+  s += tuft + spines;
+  s += `<ellipse cx="368" cy="290" rx="24" ry="27" fill="url(#thBase)"/><g clip-path="url(#thClip)">${scales}</g>`;
+  s += `<path d="M346,272 L352,262 L358,272 L364,260 L370,272 L376,260 L382,272 L388,262 L392,274 Q368,280 346,272 Z" fill="#7f9e7d"/>`;
+  s += `<path d="M352,312 Q368,326 384,312 L376,318 L368,322 L360,318 Z" fill="#5f7f5a"/>`;
+  // peony: full blush bloom with a little bud
+  s += flower(282, 300, 62, 'blush', r, 'peony');
+  s += `<g transform="translate(250,246) rotate(-25)"><path d="M0,0 C-12,-6 -12,-26 0,-32 C12,-26 12,-6 0,0 Z" fill="#e88aa5"/><path d="M0,0 C-8,-2 -14,4 -12,10 M0,0 C8,-2 14,4 12,10" stroke="#7f9e7d" stroke-width="3" fill="none"/></g>`;
+  s += `<path d="M262,262 C260,250 255,244 250,246" stroke="${stemC}" stroke-width="3" fill="none"/>`;
+  return s;
 }
 function loadWreath() {
   const el = document.getElementById('wreath');
@@ -438,7 +481,6 @@ function loadWreath() {
       g.beginPath(); g.arc(320, 320, 156, 0, Math.PI * 2); g.stroke();
       g.drawImage(img, 0, 0);
       el.appendChild(cv);
-      el.insertAdjacentHTML('beforeend', '<div class="mono">M<span>&amp;</span>H</div>');
       res();
     };
     img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgWrap(640, 640, wreathBody(rng(2026))));
