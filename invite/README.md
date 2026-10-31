@@ -29,3 +29,4 @@ defined in `mughal.js`:
 - `Mughal-Invitation-Barat-Walima.mp4` – `s1,s3,s4,s5 wreath mughal`
 - `Mughal-Invitation-Barat.mp4` – `s1,s3,s5 wreath mughal`
 - `Mughal-Invitation-Walima.mp4` – `s1,s4,s5 wreath mughal`
+- `Mughal-Invitation-All-Events.mp4` – `s1,s2,s3,s4,s5 wreath mughal`
