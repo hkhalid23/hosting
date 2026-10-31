@@ -181,6 +181,8 @@
 </div>
 
 <script>
+// Optional art direction: ?theme=mughal loads mughal.js, which restyles the page before it boots.
+const THEME = new URLSearchParams(location.search).get('theme') || '';
 // ---------- deterministic helpers ----------
 function rng(seed) { let s = seed >>> 0; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
@@ -613,7 +615,7 @@ function render(t) {
       const sweep = lerp(-40, 400, k);
       el.style.webkitMaskImage = k >= 1 ? 'none' : `conic-gradient(from -90deg, #000 ${sweep}deg, transparent ${sweep + 40}deg)`;
       el.style.opacity = k * (1 - o);
-      el.style.transform = `translateY(${-20 * o}px) scale(${lerp(.86, 1, k) * (1 + Math.sin(t * 1.1) * .006)}) rotate(${(1 - k) * -30 + Math.sin(t * .35) * 2}deg)`;
+      el.style.transform = `translateY(${-20 * o}px) scale(${lerp(.86, 1, k) * (1 + Math.sin(t * 1.1) * .006) * (window.WREATH_SCALE || 1)}) rotate(${(1 - k) * -30 + Math.sin(t * .35) * 2}deg)`;
       el.style.filter = (k < 1 || o > 0) ? `blur(${(1 - k) * 3 + o * 6}px)` : '';
     } else if (it.kind === 'couple') {
       // the couple glides in from outside the frame, fading 0 -> 100%, and settles at the centre
@@ -630,11 +632,14 @@ function render(t) {
       el.style.filter = (k < 1 || o > 0) ? `blur(${(1 - k) * 6 + o * 6}px)` : '';
     }
   }
+  if (window.themeRender) themeRender(t);
   drawFx(t);
 }
 
 // ---------- boot ----------
 window.ready = (async () => {
+  // let any theme script (loaded at the end of <body>) finish restyling before booting
+  if (document.readyState === 'loading') await new Promise(r => document.addEventListener('DOMContentLoaded', r));
   await document.fonts.ready;
   await Promise.all(['Great Vibes', 'Cinzel', 'Cormorant Garamond', 'Amiri'].map(f => document.fonts.load(`40px "${f}"`, f === 'Amiri' ? 'بسم' : 'Aa')));
   await document.fonts.load('italic 40px "Cormorant Garamond"');
@@ -642,6 +647,7 @@ window.ready = (async () => {
   drawBackground(); buildArch(); buildStrands(); setupScenes();
   for (const c of CLUSTERS) await loadCluster(c);
   if (DECO === 'wreath') await loadWreath();
+  if (window.themeBoot) await themeBoot();
   render(0);
   return true;
 })();
@@ -654,5 +660,6 @@ if (!location.search.includes('render')) {
   window.ready.then(() => { const t0 = performance.now(); const loop = () => { render(((performance.now() - t0) / 1000) % (DURATION + 2)); requestAnimationFrame(loop); }; loop(); });
 } else document.body.classList.add('render');
 </script>
+<script>if (THEME) document.write('<script src="' + THEME + '.js"><\/script>');</script>
 </body>
 </html>
