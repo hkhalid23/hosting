@@ -20,3 +20,12 @@ Generate matching music first with `python3 music.py music.wav $(node render.js 
 - `Invitation-Barat-Walima.mp4` – `s1,s3,s4,s5 wreath`
 - `Invitation-Barat.mp4` – `s1,s3,s5 wreath`
 - `Invitation-Walima.mp4` – `s1,s4,s5 wreath`
+
+## Mughal art direction
+
+Add `mughal` as the last argument (`?theme=mughal`) for the Mughal miniature / fresco look
+defined in `mughal.js`:
+
+- `Mughal-Invitation-Barat-Walima.mp4` – `s1,s3,s4,s5 wreath mughal`
+- `Mughal-Invitation-Barat.mp4` – `s1,s3,s5 wreath mughal`
+- `Mughal-Invitation-Walima.mp4` – `s1,s4,s5 wreath mughal`
